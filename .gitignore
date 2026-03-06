@@ -31,3 +31,15 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+# Archivos de configuración de IntelliJ
+.idea/
+
+
+# Archivos de compilación
+.mvn/
+
+# Archivos de secretos
+.env
+*.local
