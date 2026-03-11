@@ -7,14 +7,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.type.SqlTypes;
 
 import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
-@Table(name = "users")
+@Table(name = "Users")
 @Data
 @Builder
 @NoArgsConstructor
@@ -23,41 +25,39 @@ public class User {
 
     @Id
     @UuidGenerator
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = "id_PK", updatable = false, nullable = false)
     private String id;
 
-    @Column(name = "username", nullable = false, unique = true, length = 50)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @Column(name = "email", nullable = false, unique = true, length = 255)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password_hash", nullable = false)
+    @Column(name = "passwordHash", nullable = false)
     private String passwordHash;
 
-    @Column(name = "profile_pic")
+    @Column(name = "profilePic")
     private String profilePic;
 
-    @Column(name = "primary_goal", length = 100)
+    @Column(name = "primaryGoal")
     private String primaryGoal;
 
-    @ElementCollection(targetClass = EquipmentType.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_equipment", joinColumns = @JoinColumn(name = "user_id"))
-    @Enumerated(EnumType.STRING)
-    @Column(name = "equipment_type")
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "equipmentAvailable", columnDefinition = "JSON")
     private List<EquipmentType> equipmentAvailable;
 
-    @Column(name = "unit_system", length = 10)
+    @Column(name = "unitSystem", length = 50)
     private String unitSystem;
 
-    @Column(name = "rest_timer_default")
+    @Column(name = "restTimerDefault")
     private Integer restTimerDefault;
 
     @CreationTimestamp
-    @Column(name = "created_at", updatable = false, nullable = false)
+    @Column(name = "createdAt", updatable = false, nullable = false)
     private Timestamp createdAt;
 
     @UpdateTimestamp
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updatedAt", nullable = false)
     private Timestamp updatedAt;
 }
