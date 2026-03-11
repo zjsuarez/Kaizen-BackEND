@@ -43,3 +43,4 @@ build/
 # Archivos de secretos
 .env
 *.local
+agent.md
