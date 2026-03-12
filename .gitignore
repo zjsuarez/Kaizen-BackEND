@@ -44,3 +44,6 @@ build/
 .env
 *.local
 agent.md
+
+# Archivos de configuración
+application-local.properties
