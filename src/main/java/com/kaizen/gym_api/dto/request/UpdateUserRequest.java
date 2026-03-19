@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Set;
 
 @Data
@@ -39,4 +40,10 @@ public class UpdateUserRequest {
     private Integer restTimerDefault;
 
     private Set<EquipmentType> equipmentAvailable;
+
+    private BigDecimal weightKg;
+
+    private BigDecimal bodyFatPercentage;
+
+    private String progressPhotoUrl;
 }

@@ -2,7 +2,9 @@ package com.kaizen.gym_api.service;
 
 import com.kaizen.gym_api.dto.request.UpdateUserRequest;
 import com.kaizen.gym_api.dto.response.UserResponse;
+import com.kaizen.gym_api.model.BodyMeasurement;
 import com.kaizen.gym_api.model.User;
+import com.kaizen.gym_api.repository.BodyMeasurementRepository;
 import com.kaizen.gym_api.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,6 +16,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final BodyMeasurementRepository bodyMeasurementRepository;
 
     public UserResponse updateUser(String userEmail, UpdateUserRequest request) {
         // Find the user making the request
@@ -61,6 +64,17 @@ public class UserService {
 
         // Save updated user
         User updatedUser = userRepository.save(user);
+
+        // Check if calibration / body measurement data was provided
+        if (request.getWeightKg() != null || request.getBodyFatPercentage() != null || request.getProgressPhotoUrl() != null) {
+            BodyMeasurement measurement = BodyMeasurement.builder()
+                    .user(updatedUser)
+                    .weightKg(request.getWeightKg())
+                    .bodyFatPercentage(request.getBodyFatPercentage())
+                    .progressPhotoUrl(request.getProgressPhotoUrl())
+                    .build();
+            bodyMeasurementRepository.save(measurement);
+        }
 
         // Return safe DTO
         return UserResponse.builder()
