@@ -50,6 +50,9 @@ public class User {
     @Column(name = "unitSystem", length = 50)
     private String unitSystem;
 
+    @Column(name = "effortMeasurement", length = 10)
+    private String effortMeasurement;
+
     @Column(name = "restTimerDefault")
     private Integer restTimerDefault;
 
