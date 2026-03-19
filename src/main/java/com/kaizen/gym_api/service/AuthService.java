@@ -43,6 +43,7 @@ public class AuthService {
                 .username(request.getUsername())
                 .email(request.getEmail())
                 .passwordHash(passwordEncoder.encode(request.getPassword()))
+                .restTimerDefault(90)
                 .build();
 
         // Save user in database
