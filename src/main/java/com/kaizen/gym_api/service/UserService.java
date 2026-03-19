@@ -18,6 +18,23 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final BodyMeasurementRepository bodyMeasurementRepository;
 
+    public UserResponse getUserProfile(String userEmail) {
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        return UserResponse.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .profilePic(user.getProfilePic())
+                .primaryGoal(user.getPrimaryGoal())
+                .unitSystem(user.getUnitSystem())
+                .effortMeasurement(user.getEffortMeasurement())
+                .restTimerDefault(user.getRestTimerDefault())
+                .equipmentAvailable(user.getEquipmentAvailable())
+                .build();
+    }
+
     public UserResponse updateUser(String userEmail, UpdateUserRequest request) {
         // Find the user making the request
         User user = userRepository.findByEmail(userEmail)
