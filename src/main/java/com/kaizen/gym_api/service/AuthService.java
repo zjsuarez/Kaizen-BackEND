@@ -23,6 +23,12 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
 
+    // ---------------
+    // ---------------
+    // REGISTER
+    // ---------------
+    // ---------------
+
     public String register(RegisterRequest request) {
         // Validate email and username exists
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
@@ -44,6 +50,12 @@ public class AuthService {
 
         return "User registered successfully";
     }
+
+    // ---------------
+    // ---------------
+    // LOGIN
+    // ---------------
+    // ---------------
 
     public AuthResponse login(LoginRequest request) {
         // Authenticate user credentials
@@ -74,3 +86,10 @@ public class AuthService {
                 .build();
     }
 }
+
+
+    // ---------------
+    // ---------------
+    // UPDATE
+    // ---------------
+    // ---------------
