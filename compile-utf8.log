@@ -14,17 +14,711 @@
 [INFO] 
 [INFO] --- compiler:3.14.1:compile (default-compile) @ gym-api ---
 [INFO] Recompiling the module because of changed source code.
-[INFO] Compiling 36 source files with javac [debug parameters release 25] to target\classes
+[INFO] Compiling 45 source files with javac [debug parameters release 11] to target\classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/KaizenApiApplication.java:[3,32] cannot access org.springframework.boot.SpringApplication
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\boot\spring-boot\4.0.3\spring-boot-4.0.3.jar(/org/springframework/boot/SpringApplication.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/KaizenApiApplication.java:[4,46] cannot access org.springframework.boot.autoconfigure.SpringBootApplication
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\4.0.3\spring-boot-autoconfigure-4.0.3.jar(/org/springframework/boot/autoconfigure/SpringBootApplication.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/KaizenApiApplication.java:[5,47] cannot access org.springframework.web.bind.annotation.GetMapping
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-web\7.0.5\spring-web-7.0.5.jar(/org/springframework/web/bind/annotation/GetMapping.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/KaizenApiApplication.java:[6,47] cannot access org.springframework.web.bind.annotation.RequestParam
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-web\7.0.5\spring-web-7.0.5.jar(/org/springframework/web/bind/annotation/RequestParam.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/KaizenApiApplication.java:[7,47] cannot access org.springframework.web.bind.annotation.RestController
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-web\7.0.5\spring-web-7.0.5.jar(/org/springframework/web/bind/annotation/RestController.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[3,46] cannot access org.springframework.context.annotation.Bean
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-context\7.0.5\spring-context-7.0.5.jar(/org/springframework/context/annotation/Bean.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[4,46] cannot access org.springframework.context.annotation.Configuration
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-context\7.0.5\spring-context-7.0.5.jar(/org/springframework/context/annotation/Configuration.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[5,67] cannot access org.springframework.security.config.annotation.web.builders.HttpSecurity
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-config\7.0.3\spring-security-config-7.0.3.jar(/org/springframework/security/config/annotation/web/builders/HttpSecurity.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[6,72] cannot access org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-config\7.0.3\spring-security-config-7.0.3.jar(/org/springframework/security/config/annotation/web/configuration/EnableWebSecurity.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[7,70] cannot access org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-config\7.0.3\spring-security-config-7.0.3.jar(/org/springframework/security/config/annotation/web/configurers/AbstractHttpConfigurer.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[8,50] cannot access org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-crypto\7.0.3\spring-security-crypto-7.0.3.jar(/org/springframework/security/crypto/bcrypt/BCryptPasswordEncoder.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[9,52] cannot access org.springframework.security.crypto.password.PasswordEncoder
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-crypto\7.0.3\spring-security-crypto-7.0.3.jar(/org/springframework/security/crypto/password/PasswordEncoder.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[10,40] cannot access org.springframework.security.web.SecurityFilterChain
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-web\7.0.3\spring-security-web-7.0.3.jar(/org/springframework/security/web/SecurityFilterChain.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[11,55] cannot access org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-web\7.0.3\spring-security-web-7.0.3.jar(/org/springframework/security/web/authentication/UsernamePasswordAuthenticationFilter.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[12,51] cannot access org.springframework.security.authentication.AuthenticationManager
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-core\7.0.3\spring-security-core-7.0.3.jar(/org/springframework/security/authentication/AuthenticationManager.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[13,51] cannot access org.springframework.security.authentication.AuthenticationProvider
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-core\7.0.3\spring-security-core-7.0.3.jar(/org/springframework/security/authentication/AuthenticationProvider.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[14,83] cannot access org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-config\7.0.3\spring-security-config-7.0.3.jar(/org/springframework/security/config/annotation/authentication/configuration/AuthenticationConfiguration.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[15,48] cannot access org.springframework.security.config.http.SessionCreationPolicy
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-config\7.0.3\spring-security-config-7.0.3.jar(/org/springframework/security/config/http/SessionCreationPolicy.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[16,53] cannot access org.springframework.security.core.userdetails.UserDetailsService
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-core\7.0.3\spring-security-core-7.0.3.jar(/org/springframework/security/core/userdetails/UserDetailsService.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[3,23] cannot access jakarta.servlet.FilterChain
+  bad class file: C:\Users\yutsin\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\11.0.18\tomcat-embed-core-11.0.18.jar(/jakarta/servlet/FilterChain.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[4,23] cannot access jakarta.servlet.ServletException
+  bad class file: C:\Users\yutsin\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\11.0.18\tomcat-embed-core-11.0.18.jar(/jakarta/servlet/ServletException.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[5,28] cannot access jakarta.servlet.http.HttpServletRequest
+  bad class file: C:\Users\yutsin\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\11.0.18\tomcat-embed-core-11.0.18.jar(/jakarta/servlet/http/HttpServletRequest.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[6,28] cannot access jakarta.servlet.http.HttpServletResponse
+  bad class file: C:\Users\yutsin\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\11.0.18\tomcat-embed-core-11.0.18.jar(/jakarta/servlet/http/HttpServletResponse.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[8,51] cannot access org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-core\7.0.3\spring-security-core-7.0.3.jar(/org/springframework/security/authentication/UsernamePasswordAuthenticationToken.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[9,49] cannot access org.springframework.security.core.context.SecurityContextHolder
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-core\7.0.3\spring-security-core-7.0.3.jar(/org/springframework/security/core/context/SecurityContextHolder.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[10,53] cannot access org.springframework.security.core.userdetails.UserDetails
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-core\7.0.3\spring-security-core-7.0.3.jar(/org/springframework/security/core/userdetails/UserDetails.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[12,55] cannot access org.springframework.security.web.authentication.WebAuthenticationDetailsSource
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-web\7.0.3\spring-security-web-7.0.3.jar(/org/springframework/security/web/authentication/WebAuthenticationDetailsSource.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[13,38] cannot access org.springframework.stereotype.Component
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-context\7.0.5\spring-context-7.0.5.jar(/org/springframework/stereotype/Component.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[14,38] cannot access org.springframework.web.filter.OncePerRequestFilter
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-web\7.0.5\spring-web-7.0.5.jar(/org/springframework/web/filter/OncePerRequestFilter.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtService.java:[8,52] cannot access org.springframework.beans.factory.annotation.Value
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-beans\7.0.5\spring-beans-7.0.5.jar(/org/springframework/beans/factory/annotation/Value.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtService.java:[10,38] cannot access org.springframework.stereotype.Service
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-context\7.0.5\spring-context-7.0.5.jar(/org/springframework/stereotype/Service.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/AuthController.java:[3,32] cannot access org.springframework.http.ResponseEntity
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-web\7.0.5\spring-web-7.0.5.jar(/org/springframework/http/ResponseEntity.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/AuthController.java:[14,2] cannot access org.springframework.web.bind.annotation.RequestMapping
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-web\7.0.5\spring-web-7.0.5.jar(/org/springframework/web/bind/annotation/RequestMapping.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/repository/UserRepository.java:[4,47] cannot access org.springframework.data.jpa.repository.JpaRepository
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\data\spring-data-jpa\4.0.3\spring-data-jpa-4.0.3.jar(/org/springframework/data/jpa/repository/JpaRepository.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/repository/UserRepository.java:[5,38] cannot access org.springframework.stereotype.Repository
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-context\7.0.5\spring-context-7.0.5.jar(/org/springframework/stereotype/Repository.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[9,33] cannot access org.hibernate.annotations.CreationTimestamp
+  bad class file: C:\Users\yutsin\.m2\repository\org\hibernate\orm\hibernate-core\7.2.4.Final\hibernate-core-7.2.4.Final.jar(/org/hibernate/annotations/CreationTimestamp.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[10,33] cannot access org.hibernate.annotations.UpdateTimestamp
+  bad class file: C:\Users\yutsin\.m2\repository\org\hibernate\orm\hibernate-core\7.2.4.Final\hibernate-core-7.2.4.Final.jar(/org/hibernate/annotations/UpdateTimestamp.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[11,33] cannot access org.hibernate.annotations.UuidGenerator
+  bad class file: C:\Users\yutsin\.m2\repository\org\hibernate\orm\hibernate-core\7.2.4.Final\hibernate-core-7.2.4.Final.jar(/org/hibernate/annotations/UuidGenerator.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[16,2] cannot access jakarta.persistence.Entity
+  bad class file: C:\Users\yutsin\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.2.0\jakarta.persistence-api-3.2.0.jar(/jakarta/persistence/Entity.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[17,2] cannot access jakarta.persistence.Table
+  bad class file: C:\Users\yutsin\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.2.0\jakarta.persistence-api-3.2.0.jar(/jakarta/persistence/Table.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[9,32] cannot access org.springframework.http.HttpStatus
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-web\7.0.5\spring-web-7.0.5.jar(/org/springframework/http/HttpStatus.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[11,41] cannot access org.springframework.security.core.Authentication
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-core\7.0.3\spring-security-core-7.0.3.jar(/org/springframework/security/core/Authentication.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/service/RoutineService.java:[19,50] cannot access org.springframework.transaction.annotation.Transactional
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-tx\7.0.5\spring-tx-7.0.5.jar(/org/springframework/transaction/annotation/Transactional.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/UserController.java:[12,47] cannot access org.springframework.web.bind.annotation.PutMapping
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-web\7.0.5\spring-web-7.0.5.jar(/org/springframework/web/bind/annotation/PutMapping.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/UserController.java:[13,47] cannot access org.springframework.web.bind.annotation.RequestBody
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-web\7.0.5\spring-web-7.0.5.jar(/org/springframework/web/bind/annotation/RequestBody.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/repository/WorkoutRepository.java:[5,47] cannot access org.springframework.data.jpa.repository.Query
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\data\spring-data-jpa\4.0.3\spring-data-jpa-4.0.3.jar(/org/springframework/data/jpa/repository/Query.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/repository/WorkoutRepository.java:[6,49] cannot access org.springframework.data.repository.query.Param
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\data\spring-data-commons\4.0.3\spring-data-commons-4.0.3.jar(/org/springframework/data/repository/query/Param.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/UserDetailsServiceImpl.java:[8,53] cannot access org.springframework.security.core.userdetails.UsernameNotFoundException
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-core\7.0.3\spring-security-core-7.0.3.jar(/org/springframework/security/core/userdetails/UsernameNotFoundException.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/AuthController.java:[20,6] cannot access org.springframework.web.bind.annotation.PostMapping
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-web\7.0.5\spring-web-7.0.5.jar(/org/springframework/web/bind/annotation/PostMapping.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[24,6] cannot access jakarta.persistence.Id
+  bad class file: C:\Users\yutsin\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.2.0\jakarta.persistence-api-3.2.0.jar(/jakarta/persistence/Id.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[26,6] cannot access jakarta.persistence.Column
+  bad class file: C:\Users\yutsin\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.2.0\jakarta.persistence-api-3.2.0.jar(/jakarta/persistence/Column.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[44,6] cannot access jakarta.persistence.ElementCollection
+  bad class file: C:\Users\yutsin\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.2.0\jakarta.persistence-api-3.2.0.jar(/jakarta/persistence/ElementCollection.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[44,67] cannot access jakarta.persistence.FetchType
+  bad class file: C:\Users\yutsin\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.2.0\jakarta.persistence-api-3.2.0.jar(/jakarta/persistence/FetchType.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[45,6] cannot access jakarta.persistence.CollectionTable
+  bad class file: C:\Users\yutsin\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.2.0\jakarta.persistence-api-3.2.0.jar(/jakarta/persistence/CollectionTable.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[45,61] cannot access jakarta.persistence.JoinColumn
+  bad class file: C:\Users\yutsin\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.2.0\jakarta.persistence-api-3.2.0.jar(/jakarta/persistence/JoinColumn.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[46,6] cannot access jakarta.persistence.Enumerated
+  bad class file: C:\Users\yutsin\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.2.0\jakarta.persistence-api-3.2.0.jar(/jakarta/persistence/Enumerated.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[46,17] cannot access jakarta.persistence.EnumType
+  bad class file: C:\Users\yutsin\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.2.0\jakarta.persistence-api-3.2.0.jar(/jakarta/persistence/EnumType.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[41,60] cannot access org.springframework.web.bind.annotation.PathVariable
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-web\7.0.5\spring-web-7.0.5.jar(/org/springframework/web/bind/annotation/PathVariable.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[58,6] cannot access org.springframework.web.bind.annotation.DeleteMapping
+  bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-web\7.0.5\spring-web-7.0.5.jar(/org/springframework/web/bind/annotation/DeleteMapping.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/Exercise.java:[44,6] cannot access jakarta.persistence.ManyToOne
+  bad class file: C:\Users\yutsin\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.2.0\jakarta.persistence-api-3.2.0.jar(/jakarta/persistence/ManyToOne.class)
+    class file has wrong version 61.0, should be 55.0
+    Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/KaizenApiApplication.java:[9,2] cannot find symbol
+  symbol: class SpringBootApplication
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/KaizenApiApplication.java:[10,2] cannot find symbol
+  symbol: class RestController
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[22,2] cannot find symbol
+  symbol: class Configuration
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[23,2] cannot find symbol
+  symbol: class EnableWebSecurity
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[20,46] cannot find symbol
+  symbol: class OncePerRequestFilter
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[18,2] cannot find symbol
+  symbol: class Component
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[28,19] cannot find symbol
+  symbol:   class UserDetailsService
+  location: class com.kaizen.gym_api.config.SecurityConfig
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[32,52] cannot find symbol
+  symbol:   class HttpSecurity
+  location: class com.kaizen.gym_api.config.SecurityConfig
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[32,12] cannot find symbol
+  symbol:   class SecurityFilterChain
+  location: class com.kaizen.gym_api.config.SecurityConfig
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[47,12] cannot find symbol
+  symbol:   class PasswordEncoder
+  location: class com.kaizen.gym_api.config.SecurityConfig
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[52,56] cannot find symbol
+  symbol:   class AuthenticationConfiguration
+  location: class com.kaizen.gym_api.config.SecurityConfig
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[52,12] cannot find symbol
+  symbol:   class AuthenticationManager
+  location: class com.kaizen.gym_api.config.SecurityConfig
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtService.java:[18,2] cannot find symbol
+  symbol: class Service
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[23,19] cannot find symbol
+  symbol:   class UserDetailsService
+  location: class com.kaizen.gym_api.security.JwtAuthenticationFilter
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[27,13] cannot find symbol
+  symbol:   class HttpServletRequest
+  location: class com.kaizen.gym_api.security.JwtAuthenticationFilter
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[28,13] cannot find symbol
+  symbol:   class HttpServletResponse
+  location: class com.kaizen.gym_api.security.JwtAuthenticationFilter
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[29,13] cannot find symbol
+  symbol:   class FilterChain
+  location: class com.kaizen.gym_api.security.JwtAuthenticationFilter
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[30,14] cannot find symbol
+  symbol:   class ServletException
+  location: class com.kaizen.gym_api.security.JwtAuthenticationFilter
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtService.java:[40,33] cannot find symbol
+  symbol:   class UserDetails
+  location: class com.kaizen.gym_api.security.JwtService
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtService.java:[48,13] cannot find symbol
+  symbol:   class UserDetails
+  location: class com.kaizen.gym_api.security.JwtService
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtService.java:[60,47] cannot find symbol
+  symbol:   class UserDetails
+  location: class com.kaizen.gym_api.security.JwtService
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/AuthController.java:[13,2] cannot find symbol
+  symbol: class RestController
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/service/AuthService.java:[17,2] cannot find symbol
+  symbol: class Service
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/AuthController.java:[21,12] cannot find symbol
+  symbol:   class ResponseEntity
+  location: class com.kaizen.gym_api.controller.AuthController
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/AuthController.java:[31,12] cannot find symbol
+  symbol:   class ResponseEntity
+  location: class com.kaizen.gym_api.controller.AuthController
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/repository/UserRepository.java:[10,41] cannot find symbol
+  symbol: class JpaRepository
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/repository/UserRepository.java:[9,2] cannot find symbol
+  symbol: class Repository
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/service/AuthService.java:[22,19] cannot find symbol
+  symbol:   class PasswordEncoder
+  location: class com.kaizen.gym_api.service.AuthService
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/service/AuthService.java:[23,19] cannot find symbol
+  symbol:   class AuthenticationManager
+  location: class com.kaizen.gym_api.service.AuthService
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[17,2] cannot find symbol
+  symbol: class RestController
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[18,2] cannot find symbol
+  symbol: class RequestMapping
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/service/RoutineService.java:[25,2] cannot find symbol
+  symbol: class Service
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[25,12] cannot find symbol
+  symbol:   class ResponseEntity
+  location: class com.kaizen.gym_api.controller.RoutineController
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[33,12] cannot find symbol
+  symbol:   class ResponseEntity
+  location: class com.kaizen.gym_api.controller.RoutineController
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[41,12] cannot find symbol
+  symbol:   class ResponseEntity
+  location: class com.kaizen.gym_api.controller.RoutineController
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[49,12] cannot find symbol
+  symbol:   class ResponseEntity
+  location: class com.kaizen.gym_api.controller.RoutineController
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[59,12] cannot find symbol
+  symbol:   class ResponseEntity
+  location: class com.kaizen.gym_api.controller.RoutineController
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[67,12] cannot find symbol
+  symbol:   class ResponseEntity
+  location: class com.kaizen.gym_api.controller.RoutineController
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/repository/RoutineRepository.java:[11,44] cannot find symbol
+  symbol: class JpaRepository
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/repository/RoutineRepository.java:[10,2] cannot find symbol
+  symbol: class Repository
+[INFO] 100 errors 
+[INFO] -------------------------------------------------------------
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD FAILURE
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  1.765 s
-[INFO] Finished at: 2026-03-23T17:58:55+01:00
+[INFO] Total time:  3.459 s
+[INFO] Finished at: 2026-03-23T18:41:15+01:00
 [INFO] ------------------------------------------------------------------------
-[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.1:compile (default-compile) on project gym-api: Fatal error compiling: error: release version 25 not supported -> [Help 1]
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.1:compile (default-compile) on project gym-api: Compilation failure: Compilation failure: 
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/KaizenApiApplication.java:[3,32] cannot access org.springframework.boot.SpringApplication
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\boot\spring-boot\4.0.3\spring-boot-4.0.3.jar(/org/springframework/boot/SpringApplication.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/KaizenApiApplication.java:[4,46] cannot access org.springframework.boot.autoconfigure.SpringBootApplication
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\4.0.3\spring-boot-autoconfigure-4.0.3.jar(/org/springframework/boot/autoconfigure/SpringBootApplication.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/KaizenApiApplication.java:[5,47] cannot access org.springframework.web.bind.annotation.GetMapping
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-web\7.0.5\spring-web-7.0.5.jar(/org/springframework/web/bind/annotation/GetMapping.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/KaizenApiApplication.java:[6,47] cannot access org.springframework.web.bind.annotation.RequestParam
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-web\7.0.5\spring-web-7.0.5.jar(/org/springframework/web/bind/annotation/RequestParam.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/KaizenApiApplication.java:[7,47] cannot access org.springframework.web.bind.annotation.RestController
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-web\7.0.5\spring-web-7.0.5.jar(/org/springframework/web/bind/annotation/RestController.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[3,46] cannot access org.springframework.context.annotation.Bean
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-context\7.0.5\spring-context-7.0.5.jar(/org/springframework/context/annotation/Bean.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[4,46] cannot access org.springframework.context.annotation.Configuration
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-context\7.0.5\spring-context-7.0.5.jar(/org/springframework/context/annotation/Configuration.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[5,67] cannot access org.springframework.security.config.annotation.web.builders.HttpSecurity
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-config\7.0.3\spring-security-config-7.0.3.jar(/org/springframework/security/config/annotation/web/builders/HttpSecurity.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[6,72] cannot access org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-config\7.0.3\spring-security-config-7.0.3.jar(/org/springframework/security/config/annotation/web/configuration/EnableWebSecurity.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[7,70] cannot access org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-config\7.0.3\spring-security-config-7.0.3.jar(/org/springframework/security/config/annotation/web/configurers/AbstractHttpConfigurer.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[8,50] cannot access org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-crypto\7.0.3\spring-security-crypto-7.0.3.jar(/org/springframework/security/crypto/bcrypt/BCryptPasswordEncoder.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[9,52] cannot access org.springframework.security.crypto.password.PasswordEncoder
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-crypto\7.0.3\spring-security-crypto-7.0.3.jar(/org/springframework/security/crypto/password/PasswordEncoder.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[10,40] cannot access org.springframework.security.web.SecurityFilterChain
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-web\7.0.3\spring-security-web-7.0.3.jar(/org/springframework/security/web/SecurityFilterChain.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[11,55] cannot access org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-web\7.0.3\spring-security-web-7.0.3.jar(/org/springframework/security/web/authentication/UsernamePasswordAuthenticationFilter.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[12,51] cannot access org.springframework.security.authentication.AuthenticationManager
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-core\7.0.3\spring-security-core-7.0.3.jar(/org/springframework/security/authentication/AuthenticationManager.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[13,51] cannot access org.springframework.security.authentication.AuthenticationProvider
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-core\7.0.3\spring-security-core-7.0.3.jar(/org/springframework/security/authentication/AuthenticationProvider.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[14,83] cannot access org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-config\7.0.3\spring-security-config-7.0.3.jar(/org/springframework/security/config/annotation/authentication/configuration/AuthenticationConfiguration.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[15,48] cannot access org.springframework.security.config.http.SessionCreationPolicy
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-config\7.0.3\spring-security-config-7.0.3.jar(/org/springframework/security/config/http/SessionCreationPolicy.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[16,53] cannot access org.springframework.security.core.userdetails.UserDetailsService
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-core\7.0.3\spring-security-core-7.0.3.jar(/org/springframework/security/core/userdetails/UserDetailsService.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[3,23] cannot access jakarta.servlet.FilterChain
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\11.0.18\tomcat-embed-core-11.0.18.jar(/jakarta/servlet/FilterChain.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[4,23] cannot access jakarta.servlet.ServletException
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\11.0.18\tomcat-embed-core-11.0.18.jar(/jakarta/servlet/ServletException.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[5,28] cannot access jakarta.servlet.http.HttpServletRequest
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\11.0.18\tomcat-embed-core-11.0.18.jar(/jakarta/servlet/http/HttpServletRequest.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[6,28] cannot access jakarta.servlet.http.HttpServletResponse
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\11.0.18\tomcat-embed-core-11.0.18.jar(/jakarta/servlet/http/HttpServletResponse.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[8,51] cannot access org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-core\7.0.3\spring-security-core-7.0.3.jar(/org/springframework/security/authentication/UsernamePasswordAuthenticationToken.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[9,49] cannot access org.springframework.security.core.context.SecurityContextHolder
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-core\7.0.3\spring-security-core-7.0.3.jar(/org/springframework/security/core/context/SecurityContextHolder.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[10,53] cannot access org.springframework.security.core.userdetails.UserDetails
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-core\7.0.3\spring-security-core-7.0.3.jar(/org/springframework/security/core/userdetails/UserDetails.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[12,55] cannot access org.springframework.security.web.authentication.WebAuthenticationDetailsSource
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-web\7.0.3\spring-security-web-7.0.3.jar(/org/springframework/security/web/authentication/WebAuthenticationDetailsSource.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[13,38] cannot access org.springframework.stereotype.Component
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-context\7.0.5\spring-context-7.0.5.jar(/org/springframework/stereotype/Component.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[14,38] cannot access org.springframework.web.filter.OncePerRequestFilter
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-web\7.0.5\spring-web-7.0.5.jar(/org/springframework/web/filter/OncePerRequestFilter.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtService.java:[8,52] cannot access org.springframework.beans.factory.annotation.Value
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-beans\7.0.5\spring-beans-7.0.5.jar(/org/springframework/beans/factory/annotation/Value.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtService.java:[10,38] cannot access org.springframework.stereotype.Service
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-context\7.0.5\spring-context-7.0.5.jar(/org/springframework/stereotype/Service.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/AuthController.java:[3,32] cannot access org.springframework.http.ResponseEntity
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-web\7.0.5\spring-web-7.0.5.jar(/org/springframework/http/ResponseEntity.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/AuthController.java:[14,2] cannot access org.springframework.web.bind.annotation.RequestMapping
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-web\7.0.5\spring-web-7.0.5.jar(/org/springframework/web/bind/annotation/RequestMapping.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/repository/UserRepository.java:[4,47] cannot access org.springframework.data.jpa.repository.JpaRepository
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\data\spring-data-jpa\4.0.3\spring-data-jpa-4.0.3.jar(/org/springframework/data/jpa/repository/JpaRepository.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/repository/UserRepository.java:[5,38] cannot access org.springframework.stereotype.Repository
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-context\7.0.5\spring-context-7.0.5.jar(/org/springframework/stereotype/Repository.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[9,33] cannot access org.hibernate.annotations.CreationTimestamp
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\hibernate\orm\hibernate-core\7.2.4.Final\hibernate-core-7.2.4.Final.jar(/org/hibernate/annotations/CreationTimestamp.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[10,33] cannot access org.hibernate.annotations.UpdateTimestamp
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\hibernate\orm\hibernate-core\7.2.4.Final\hibernate-core-7.2.4.Final.jar(/org/hibernate/annotations/UpdateTimestamp.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[11,33] cannot access org.hibernate.annotations.UuidGenerator
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\hibernate\orm\hibernate-core\7.2.4.Final\hibernate-core-7.2.4.Final.jar(/org/hibernate/annotations/UuidGenerator.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[16,2] cannot access jakarta.persistence.Entity
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.2.0\jakarta.persistence-api-3.2.0.jar(/jakarta/persistence/Entity.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[17,2] cannot access jakarta.persistence.Table
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.2.0\jakarta.persistence-api-3.2.0.jar(/jakarta/persistence/Table.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[9,32] cannot access org.springframework.http.HttpStatus
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-web\7.0.5\spring-web-7.0.5.jar(/org/springframework/http/HttpStatus.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[11,41] cannot access org.springframework.security.core.Authentication
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-core\7.0.3\spring-security-core-7.0.3.jar(/org/springframework/security/core/Authentication.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/service/RoutineService.java:[19,50] cannot access org.springframework.transaction.annotation.Transactional
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-tx\7.0.5\spring-tx-7.0.5.jar(/org/springframework/transaction/annotation/Transactional.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/UserController.java:[12,47] cannot access org.springframework.web.bind.annotation.PutMapping
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-web\7.0.5\spring-web-7.0.5.jar(/org/springframework/web/bind/annotation/PutMapping.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/UserController.java:[13,47] cannot access org.springframework.web.bind.annotation.RequestBody
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-web\7.0.5\spring-web-7.0.5.jar(/org/springframework/web/bind/annotation/RequestBody.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/repository/WorkoutRepository.java:[5,47] cannot access org.springframework.data.jpa.repository.Query
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\data\spring-data-jpa\4.0.3\spring-data-jpa-4.0.3.jar(/org/springframework/data/jpa/repository/Query.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/repository/WorkoutRepository.java:[6,49] cannot access org.springframework.data.repository.query.Param
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\data\spring-data-commons\4.0.3\spring-data-commons-4.0.3.jar(/org/springframework/data/repository/query/Param.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/UserDetailsServiceImpl.java:[8,53] cannot access org.springframework.security.core.userdetails.UsernameNotFoundException
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\security\spring-security-core\7.0.3\spring-security-core-7.0.3.jar(/org/springframework/security/core/userdetails/UsernameNotFoundException.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/AuthController.java:[20,6] cannot access org.springframework.web.bind.annotation.PostMapping
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-web\7.0.5\spring-web-7.0.5.jar(/org/springframework/web/bind/annotation/PostMapping.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[24,6] cannot access jakarta.persistence.Id
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.2.0\jakarta.persistence-api-3.2.0.jar(/jakarta/persistence/Id.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[26,6] cannot access jakarta.persistence.Column
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.2.0\jakarta.persistence-api-3.2.0.jar(/jakarta/persistence/Column.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[44,6] cannot access jakarta.persistence.ElementCollection
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.2.0\jakarta.persistence-api-3.2.0.jar(/jakarta/persistence/ElementCollection.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[44,67] cannot access jakarta.persistence.FetchType
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.2.0\jakarta.persistence-api-3.2.0.jar(/jakarta/persistence/FetchType.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[45,6] cannot access jakarta.persistence.CollectionTable
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.2.0\jakarta.persistence-api-3.2.0.jar(/jakarta/persistence/CollectionTable.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[45,61] cannot access jakarta.persistence.JoinColumn
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.2.0\jakarta.persistence-api-3.2.0.jar(/jakarta/persistence/JoinColumn.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[46,6] cannot access jakarta.persistence.Enumerated
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.2.0\jakarta.persistence-api-3.2.0.jar(/jakarta/persistence/Enumerated.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/User.java:[46,17] cannot access jakarta.persistence.EnumType
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.2.0\jakarta.persistence-api-3.2.0.jar(/jakarta/persistence/EnumType.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[41,60] cannot access org.springframework.web.bind.annotation.PathVariable
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-web\7.0.5\spring-web-7.0.5.jar(/org/springframework/web/bind/annotation/PathVariable.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[58,6] cannot access org.springframework.web.bind.annotation.DeleteMapping
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\org\springframework\spring-web\7.0.5\spring-web-7.0.5.jar(/org/springframework/web/bind/annotation/DeleteMapping.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/model/Exercise.java:[44,6] cannot access jakarta.persistence.ManyToOne
+[ERROR]   bad class file: C:\Users\yutsin\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.2.0\jakarta.persistence-api-3.2.0.jar(/jakarta/persistence/ManyToOne.class)
+[ERROR]     class file has wrong version 61.0, should be 55.0
+[ERROR]     Please remove or make sure it appears in the correct subdirectory of the classpath.
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/KaizenApiApplication.java:[9,2] cannot find symbol
+[ERROR]   symbol: class SpringBootApplication
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/KaizenApiApplication.java:[10,2] cannot find symbol
+[ERROR]   symbol: class RestController
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[22,2] cannot find symbol
+[ERROR]   symbol: class Configuration
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[23,2] cannot find symbol
+[ERROR]   symbol: class EnableWebSecurity
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[20,46] cannot find symbol
+[ERROR]   symbol: class OncePerRequestFilter
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[18,2] cannot find symbol
+[ERROR]   symbol: class Component
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[28,19] cannot find symbol
+[ERROR]   symbol:   class UserDetailsService
+[ERROR]   location: class com.kaizen.gym_api.config.SecurityConfig
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[32,52] cannot find symbol
+[ERROR]   symbol:   class HttpSecurity
+[ERROR]   location: class com.kaizen.gym_api.config.SecurityConfig
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[32,12] cannot find symbol
+[ERROR]   symbol:   class SecurityFilterChain
+[ERROR]   location: class com.kaizen.gym_api.config.SecurityConfig
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[47,12] cannot find symbol
+[ERROR]   symbol:   class PasswordEncoder
+[ERROR]   location: class com.kaizen.gym_api.config.SecurityConfig
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[52,56] cannot find symbol
+[ERROR]   symbol:   class AuthenticationConfiguration
+[ERROR]   location: class com.kaizen.gym_api.config.SecurityConfig
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/config/SecurityConfig.java:[52,12] cannot find symbol
+[ERROR]   symbol:   class AuthenticationManager
+[ERROR]   location: class com.kaizen.gym_api.config.SecurityConfig
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtService.java:[18,2] cannot find symbol
+[ERROR]   symbol: class Service
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[23,19] cannot find symbol
+[ERROR]   symbol:   class UserDetailsService
+[ERROR]   location: class com.kaizen.gym_api.security.JwtAuthenticationFilter
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[27,13] cannot find symbol
+[ERROR]   symbol:   class HttpServletRequest
+[ERROR]   location: class com.kaizen.gym_api.security.JwtAuthenticationFilter
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[28,13] cannot find symbol
+[ERROR]   symbol:   class HttpServletResponse
+[ERROR]   location: class com.kaizen.gym_api.security.JwtAuthenticationFilter
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[29,13] cannot find symbol
+[ERROR]   symbol:   class FilterChain
+[ERROR]   location: class com.kaizen.gym_api.security.JwtAuthenticationFilter
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtAuthenticationFilter.java:[30,14] cannot find symbol
+[ERROR]   symbol:   class ServletException
+[ERROR]   location: class com.kaizen.gym_api.security.JwtAuthenticationFilter
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtService.java:[40,33] cannot find symbol
+[ERROR]   symbol:   class UserDetails
+[ERROR]   location: class com.kaizen.gym_api.security.JwtService
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtService.java:[48,13] cannot find symbol
+[ERROR]   symbol:   class UserDetails
+[ERROR]   location: class com.kaizen.gym_api.security.JwtService
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/security/JwtService.java:[60,47] cannot find symbol
+[ERROR]   symbol:   class UserDetails
+[ERROR]   location: class com.kaizen.gym_api.security.JwtService
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/AuthController.java:[13,2] cannot find symbol
+[ERROR]   symbol: class RestController
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/service/AuthService.java:[17,2] cannot find symbol
+[ERROR]   symbol: class Service
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/AuthController.java:[21,12] cannot find symbol
+[ERROR]   symbol:   class ResponseEntity
+[ERROR]   location: class com.kaizen.gym_api.controller.AuthController
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/AuthController.java:[31,12] cannot find symbol
+[ERROR]   symbol:   class ResponseEntity
+[ERROR]   location: class com.kaizen.gym_api.controller.AuthController
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/repository/UserRepository.java:[10,41] cannot find symbol
+[ERROR]   symbol: class JpaRepository
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/repository/UserRepository.java:[9,2] cannot find symbol
+[ERROR]   symbol: class Repository
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/service/AuthService.java:[22,19] cannot find symbol
+[ERROR]   symbol:   class PasswordEncoder
+[ERROR]   location: class com.kaizen.gym_api.service.AuthService
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/service/AuthService.java:[23,19] cannot find symbol
+[ERROR]   symbol:   class AuthenticationManager
+[ERROR]   location: class com.kaizen.gym_api.service.AuthService
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[17,2] cannot find symbol
+[ERROR]   symbol: class RestController
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[18,2] cannot find symbol
+[ERROR]   symbol: class RequestMapping
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/service/RoutineService.java:[25,2] cannot find symbol
+[ERROR]   symbol: class Service
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[25,12] cannot find symbol
+[ERROR]   symbol:   class ResponseEntity
+[ERROR]   location: class com.kaizen.gym_api.controller.RoutineController
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[33,12] cannot find symbol
+[ERROR]   symbol:   class ResponseEntity
+[ERROR]   location: class com.kaizen.gym_api.controller.RoutineController
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[41,12] cannot find symbol
+[ERROR]   symbol:   class ResponseEntity
+[ERROR]   location: class com.kaizen.gym_api.controller.RoutineController
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[49,12] cannot find symbol
+[ERROR]   symbol:   class ResponseEntity
+[ERROR]   location: class com.kaizen.gym_api.controller.RoutineController
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[59,12] cannot find symbol
+[ERROR]   symbol:   class ResponseEntity
+[ERROR]   location: class com.kaizen.gym_api.controller.RoutineController
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[67,12] cannot find symbol
+[ERROR]   symbol:   class ResponseEntity
+[ERROR]   location: class com.kaizen.gym_api.controller.RoutineController
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/repository/RoutineRepository.java:[11,44] cannot find symbol
+[ERROR]   symbol: class JpaRepository
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/repository/RoutineRepository.java:[10,2] cannot find symbol
+[ERROR]   symbol: class Repository
+[ERROR] -> [Help 1]
 [ERROR] 
 [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
 [ERROR] Re-run Maven using the -X switch to enable full debug logging.
 [ERROR] 
 [ERROR] For more information about the errors and possible solutions, please read the following articles:
-[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
