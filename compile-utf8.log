@@ -14,7 +14,7 @@
 [INFO] 
 [INFO] --- compiler:3.14.1:compile (default-compile) @ gym-api ---
 [INFO] Recompiling the module because of changed source code.
-[INFO] Compiling 45 source files with javac [debug parameters release 11] to target\classes
+[INFO] Compiling 51 source files with javac [debug parameters release 11] to target\classes
 [INFO] -------------------------------------------------------------
 [ERROR] COMPILATION ERROR : 
 [INFO] -------------------------------------------------------------
@@ -338,7 +338,7 @@
   symbol: class RestController
 [ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[18,2] cannot find symbol
   symbol: class RequestMapping
-[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/service/RoutineService.java:[25,2] cannot find symbol
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/service/RoutineService.java:[24,2] cannot find symbol
   symbol: class Service
 [ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[25,12] cannot find symbol
   symbol:   class ResponseEntity
@@ -367,8 +367,8 @@
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD FAILURE
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.459 s
-[INFO] Finished at: 2026-03-23T18:41:15+01:00
+[INFO] Total time:  3.354 s
+[INFO] Finished at: 2026-03-23T19:22:08+01:00
 [INFO] ------------------------------------------------------------------------
 [ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.1:compile (default-compile) on project gym-api: Compilation failure: Compilation failure: 
 [ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/KaizenApiApplication.java:[3,32] cannot access org.springframework.boot.SpringApplication
@@ -691,7 +691,7 @@
 [ERROR]   symbol: class RestController
 [ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[18,2] cannot find symbol
 [ERROR]   symbol: class RequestMapping
-[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/service/RoutineService.java:[25,2] cannot find symbol
+[ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/service/RoutineService.java:[24,2] cannot find symbol
 [ERROR]   symbol: class Service
 [ERROR] /C:/Users/yutsin/Desktop/Kaizen/KaizenBackEND/gym-api/src/main/java/com/kaizen/gym_api/controller/RoutineController.java:[25,12] cannot find symbol
 [ERROR]   symbol:   class ResponseEntity

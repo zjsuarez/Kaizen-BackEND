@@ -5,7 +5,17 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
+
+@Repository
 public interface WorkoutRepository extends JpaRepository<Workout, String> {
+
+    List<Workout> findByUser_EmailOrderByStartTimeDesc(String email);
+
+    Optional<Workout> findByIdAndUser_Email(String id, String email);
 
     long countByUserId(String userId);
 
