@@ -42,16 +42,16 @@ public class User {
     private String primaryGoal;
 
     @ElementCollection(targetClass = EquipmentType.class, fetch = FetchType.LAZY)
-    @CollectionTable(
-            name = "UserEquipment",
-            joinColumns = @JoinColumn(name = "userId_FK", columnDefinition = "CHAR(36)")
-    )
+    @CollectionTable(name = "UserEquipment", joinColumns = @JoinColumn(name = "userId_FK", columnDefinition = "CHAR(36)"))
     @Enumerated(EnumType.STRING)
     @Column(name = "equipmentType")
     private Set<EquipmentType> equipmentAvailable;
 
     @Column(name = "unitSystem", length = 50)
     private String unitSystem;
+
+    @Column(name = "effortMeasurement", length = 10)
+    private String effortMeasurement;
 
     @Column(name = "restTimerDefault")
     private Integer restTimerDefault;
