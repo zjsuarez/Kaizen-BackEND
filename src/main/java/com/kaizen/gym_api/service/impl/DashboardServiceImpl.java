@@ -4,11 +4,11 @@ import com.kaizen.gym_api.dto.response.DashboardResponse;
 import com.kaizen.gym_api.repository.WorkoutRepository;
 import com.kaizen.gym_api.repository.WorkoutSetRepository;
 import com.kaizen.gym_api.service.DashboardService;
-import com.kaizen.gym_api.util.FitnessMetricsUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,10 +32,11 @@ public class DashboardServiceImpl implements DashboardService {
         LocalDateTime startOfWeek = today.with(DayOfWeek.MONDAY).atStartOfDay();
         LocalDateTime endOfWeek = today.with(DayOfWeek.SUNDAY).atTime(23, 59, 59, 999999999);
 
-        Double weeklyVolumeKg = workoutSetRepository.calculateTotalWeeklyVolume(
+        BigDecimal weeklyVolumeKg = workoutSetRepository.calculateTotalWeeklyVolume(
                 userId,
                 Timestamp.valueOf(startOfWeek),
                 Timestamp.valueOf(endOfWeek));
+        Double weeklyVolumeKgValue = weeklyVolumeKg != null ? weeklyVolumeKg.doubleValue() : 0.0;
 
         long prsAchievedLong = workoutSetRepository.countPrsByUserId(userId);
         Integer prsAchieved = (int) prsAchievedLong;
@@ -50,7 +51,7 @@ public class DashboardServiceImpl implements DashboardService {
         return DashboardResponse.builder()
                 .totalSessions(totalSessions)
                 .avgDurationMinutes(avgDurationMinutes)
-                .weeklyVolumeKg(weeklyVolumeKg != null ? weeklyVolumeKg : 0.0)
+                .weeklyVolumeKg(weeklyVolumeKgValue)
                 .prsAchieved(prsAchieved)
                 .estimated1RM(estimated1RM)
                 .build();
