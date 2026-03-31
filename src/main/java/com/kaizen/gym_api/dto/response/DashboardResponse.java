@@ -13,4 +13,6 @@ public class DashboardResponse {
     private Double estimated1RM;
     private LastSessionDTO lastSession;
     private NextWorkoutDTO nextWorkout;
+    private Integer recoveryTimeHours;
+    private Integer workoutStreak;
 }
