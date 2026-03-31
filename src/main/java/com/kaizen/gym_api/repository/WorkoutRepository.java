@@ -30,4 +30,14 @@ public interface WorkoutRepository extends JpaRepository<Workout, String> {
             "FROM Workouts " +
             "WHERE userId_FK = :userId AND endTime IS NOT NULL", nativeQuery = true)
     Double calculateAverageDurationInMinutes(@Param("userId") String userId);
+
+    // Calendar: distinct completed-workout dates for a given month (lightweight projection)
+    @Query(value = "SELECT DISTINCT CAST(endTime AS DATE) FROM Workouts " +
+            "WHERE userId_FK = :userId AND endTime IS NOT NULL " +
+            "AND YEAR(endTime) = :year AND MONTH(endTime) = :month " +
+            "ORDER BY CAST(endTime AS DATE) ASC", nativeQuery = true)
+    List<java.sql.Date> findTrainingDaysByUserIdAndMonth(
+            @Param("userId") String userId,
+            @Param("year") int year,
+            @Param("month") int month);
 }
