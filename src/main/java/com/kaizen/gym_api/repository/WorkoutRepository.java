@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,10 @@ public interface WorkoutRepository extends JpaRepository<Workout, String> {
     long countByUserId(String userId);
 
     Optional<Workout> findFirstByUserIdAndEndTimeIsNotNullOrderByEndTimeDesc(String userId);
+
+    // Lightweight projection: only endTime timestamps for streak calculation (no full entities)
+    @Query("SELECT w.endTime FROM Workout w WHERE w.user.id = :userId AND w.endTime IS NOT NULL ORDER BY w.endTime DESC")
+    List<Timestamp> findCompletedEndTimesByUserId(@Param("userId") String userId);
 
     @Query(value = "SELECT AVG(TIMESTAMPDIFF(MINUTE, startTime, endTime)) " +
             "FROM Workouts " +

@@ -20,6 +20,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -66,6 +67,10 @@ public class DashboardServiceImpl implements DashboardService {
         LastSessionDTO lastSession = buildLastSession(userId);
         NextWorkoutDTO nextWorkout = buildNextWorkout(userId, lastSession);
 
+        // ── KAN-53: Recovery Time & Workout Streak ──
+        Integer recoveryTimeHours = calculateRecoveryTimeHours(lastSession);
+        Integer workoutStreak = calculateWorkoutStreak(userId);
+
         return DashboardResponse.builder()
                 .totalSessions(totalSessions)
                 .avgDurationMinutes(avgDurationMinutes)
@@ -74,6 +79,8 @@ public class DashboardServiceImpl implements DashboardService {
                 .estimated1RM(estimated1RM)
                 .lastSession(lastSession)
                 .nextWorkout(nextWorkout)
+                .recoveryTimeHours(recoveryTimeHours)
+                .workoutStreak(workoutStreak)
                 .build();
     }
 
@@ -163,5 +170,47 @@ public class DashboardServiceImpl implements DashboardService {
                 .routineId(routine.getId())
                 .routineName(routine.getName())
                 .build()).orElse(null);
+    }
+
+    // Recovery time - hours since last completed workout
+    private Integer calculateRecoveryTimeHours(LastSessionDTO lastSession) {
+        if (lastSession == null || lastSession.getCompletedAt() == null) {
+            return null;
+        }
+        long hours = ChronoUnit.HOURS.between(lastSession.getCompletedAt(), LocalDateTime.now());
+        return (int) hours;
+    }
+
+    // Workout Streak - 96-Hour Rule (based on muscle recovery science)
+    private static final long MAX_GAP_HOURS = 96;
+
+    private Integer calculateWorkoutStreak(String userId) {
+        List<Timestamp> endTimes = workoutRepository.findCompletedEndTimesByUserId(userId);
+
+        if (endTimes == null || endTimes.isEmpty()) {
+            return 0;
+        }
+
+        LocalDateTime mostRecent = endTimes.get(0).toLocalDateTime();
+
+        long hoursSinceLast = ChronoUnit.HOURS.between(mostRecent, LocalDateTime.now());
+        if (hoursSinceLast > MAX_GAP_HOURS) {
+            return 0;
+        }
+
+        int streak = 1;
+        for (int i = 0; i < endTimes.size() - 1; i++) {
+            LocalDateTime newer = endTimes.get(i).toLocalDateTime();
+            LocalDateTime older = endTimes.get(i + 1).toLocalDateTime();
+
+            long gap = ChronoUnit.HOURS.between(older, newer);
+            if (gap <= MAX_GAP_HOURS) {
+                streak++;
+            } else {
+                break;
+            }
+        }
+
+        return streak;
     }
 }
