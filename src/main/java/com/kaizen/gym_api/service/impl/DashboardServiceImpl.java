@@ -67,7 +67,6 @@ public class DashboardServiceImpl implements DashboardService {
         LastSessionDTO lastSession = buildLastSession(userId);
         NextWorkoutDTO nextWorkout = buildNextWorkout(userId, lastSession);
 
-        // ── KAN-53: Recovery Time & Workout Streak ──
         Integer recoveryTimeHours = calculateRecoveryTimeHours(lastSession);
         Integer workoutStreak = calculateWorkoutStreak(userId);
 
