@@ -1,17 +1,27 @@
 package com.kaizen.gym_api.service.impl;
 
 import com.kaizen.gym_api.dto.response.DashboardResponse;
+import com.kaizen.gym_api.dto.response.LastSessionDTO;
+import com.kaizen.gym_api.dto.response.NextWorkoutDTO;
+import com.kaizen.gym_api.model.Routine;
+import com.kaizen.gym_api.model.User;
+import com.kaizen.gym_api.model.Workout;
+import com.kaizen.gym_api.repository.RoutineRepository;
+import com.kaizen.gym_api.repository.UserRepository;
 import com.kaizen.gym_api.repository.WorkoutRepository;
 import com.kaizen.gym_api.repository.WorkoutSetRepository;
 import com.kaizen.gym_api.service.DashboardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,9 +29,14 @@ public class DashboardServiceImpl implements DashboardService {
 
     private final WorkoutRepository workoutRepository;
     private final WorkoutSetRepository workoutSetRepository;
+    private final UserRepository userRepository;
+    private final RoutineRepository routineRepository;
 
     @Override
-    public DashboardResponse getDashboardMetrics(String userId) {
+    public DashboardResponse getDashboardMetrics(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        String userId = user.getId();
         long totalSessionsLong = workoutRepository.countByUserId(userId);
         Integer totalSessions = (int) totalSessionsLong;
 
@@ -48,12 +63,105 @@ public class DashboardServiceImpl implements DashboardService {
             estimated1RM = Math.round(estimated1RM * 100.0) / 100.0;
         }
 
+        LastSessionDTO lastSession = buildLastSession(userId);
+        NextWorkoutDTO nextWorkout = buildNextWorkout(userId, lastSession);
+
         return DashboardResponse.builder()
                 .totalSessions(totalSessions)
                 .avgDurationMinutes(avgDurationMinutes)
                 .weeklyVolumeKg(weeklyVolumeKgValue)
                 .prsAchieved(prsAchieved)
                 .estimated1RM(estimated1RM)
+                .lastSession(lastSession)
+                .nextWorkout(nextWorkout)
                 .build();
+    }
+
+    // Most recently completed workout
+    private LastSessionDTO buildLastSession(String userId) {
+        Optional<Workout> lastWorkoutOpt = workoutRepository
+                .findFirstByUserIdAndEndTimeIsNotNullOrderByEndTimeDesc(userId);
+
+        if (lastWorkoutOpt.isEmpty()) {
+            return null;
+        }
+
+        Workout lastWorkout = lastWorkoutOpt.get();
+
+        Integer durationMinutes = null;
+        if (lastWorkout.getStartTime() != null && lastWorkout.getEndTime() != null) {
+            long minutes = ChronoUnit.MINUTES.between(
+                    lastWorkout.getStartTime().toLocalDateTime(),
+                    lastWorkout.getEndTime().toLocalDateTime());
+            durationMinutes = (int) minutes;
+        }
+
+        String routineName = null;
+        if (lastWorkout.getRoutine() != null) {
+            routineName = lastWorkout.getRoutine().getName();
+        }
+
+        return LastSessionDTO.builder()
+                .workoutId(lastWorkout.getId())
+                .routineName(routineName)
+                .durationMinutes(durationMinutes)
+                .completedAt(lastWorkout.getEndTime().toLocalDateTime())
+                .build();
+    }
+
+    // Next Workout
+    // 1. Last workout had a routine in a plan → pick next routine in plan cycle
+    // 2. Fallback: user's active plan → first routine
+    // 3. No data → null
+    private NextWorkoutDTO buildNextWorkout(String userId, LastSessionDTO lastSession) {
+        // Attempt 1: last completed workout's routine
+        if (lastSession != null) {
+            Optional<Workout> lastWorkoutOpt = workoutRepository
+                    .findFirstByUserIdAndEndTimeIsNotNullOrderByEndTimeDesc(userId);
+
+            if (lastWorkoutOpt.isPresent()) {
+                Workout lastWorkout = lastWorkoutOpt.get();
+                Routine lastRoutine = lastWorkout.getRoutine();
+
+                if (lastRoutine != null && lastRoutine.getPlan() != null) {
+                    List<Routine> planRoutines = routineRepository
+                            .findByPlan_IdOrderByCreatedAtAsc(lastRoutine.getPlan().getId());
+
+                    if (planRoutines.size() > 1) {
+                        int lastIndex = -1;
+                        for (int i = 0; i < planRoutines.size(); i++) {
+                            if (planRoutines.get(i).getId().equals(lastRoutine.getId())) {
+                                lastIndex = i;
+                                break;
+                            }
+                        }
+
+                        if (lastIndex >= 0) {
+                            int nextIndex = (lastIndex + 1) % planRoutines.size();
+                            Routine nextRoutine = planRoutines.get(nextIndex);
+                            return NextWorkoutDTO.builder()
+                                    .routineId(nextRoutine.getId())
+                                    .routineName(nextRoutine.getName())
+                                    .build();
+                        }
+                    } else if (planRoutines.size() == 1) {
+                        Routine onlyRoutine = planRoutines.get(0);
+                        return NextWorkoutDTO.builder()
+                                .routineId(onlyRoutine.getId())
+                                .routineName(onlyRoutine.getName())
+                                .build();
+                    }
+                }
+            }
+        }
+
+        // Attempt 2: first routine of the user's active training plan
+        Optional<Routine> fallbackRoutine = routineRepository
+                .findFirstByOwner_IdAndPlan_IsActiveTrueOrderByCreatedAtAsc(userId);
+
+        return fallbackRoutine.map(routine -> NextWorkoutDTO.builder()
+                .routineId(routine.getId())
+                .routineName(routine.getName())
+                .build()).orElse(null);
     }
 }
