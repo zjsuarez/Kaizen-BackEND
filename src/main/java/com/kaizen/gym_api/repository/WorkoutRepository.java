@@ -19,8 +19,10 @@ public interface WorkoutRepository extends JpaRepository<Workout, String> {
 
     long countByUserId(String userId);
 
+    Optional<Workout> findFirstByUserIdAndEndTimeIsNotNullOrderByEndTimeDesc(String userId);
+
     @Query(value = "SELECT AVG(TIMESTAMPDIFF(MINUTE, startTime, endTime)) " +
-                   "FROM Workouts " +
-                   "WHERE userId_FK = :userId AND endTime IS NOT NULL", nativeQuery = true)
+            "FROM Workouts " +
+            "WHERE userId_FK = :userId AND endTime IS NOT NULL", nativeQuery = true)
     Double calculateAverageDurationInMinutes(@Param("userId") String userId);
 }

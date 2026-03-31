@@ -15,4 +15,7 @@ public interface TrainingPlanRepository extends JpaRepository<TrainingPlan, Stri
 
     // Find a specific training plan by ID and ensure it belongs to the user with the given email
     Optional<TrainingPlan> findByIdAndUser_Email(String id, String email);
+
+    // Find the active training plan for a user
+    Optional<TrainingPlan> findByUser_IdAndIsActiveTrue(String userId);
 }

@@ -11,4 +11,6 @@ public class DashboardResponse {
     private Double weeklyVolumeKg;
     private Integer prsAchieved;
     private Double estimated1RM;
+    private LastSessionDTO lastSession;
+    private NextWorkoutDTO nextWorkout;
 }

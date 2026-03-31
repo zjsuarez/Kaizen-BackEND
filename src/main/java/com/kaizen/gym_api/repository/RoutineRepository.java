@@ -18,4 +18,10 @@ public interface RoutineRepository extends JpaRepository<Routine, String> {
     
     // Find a specific routine verifying user ownership
     Optional<Routine> findByIdAndOwner_Email(String id, String email);
+
+    // Find all routines in a training plan, ordered by creation date (for cycle logic)
+    List<Routine> findByPlan_IdOrderByCreatedAtAsc(String planId);
+
+    // Find the first routine of a user's active training plan (fallback for next workout)
+    Optional<Routine> findFirstByOwner_IdAndPlan_IsActiveTrueOrderByCreatedAtAsc(String userId);
 }
