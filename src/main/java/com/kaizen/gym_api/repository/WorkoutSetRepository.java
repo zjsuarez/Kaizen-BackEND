@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -32,4 +33,11 @@ public interface WorkoutSetRepository extends JpaRepository<WorkoutSet, String> 
 
     @Query("SELECT MAX(ws.weightKg * (1 + (ws.reps / 30.0))) FROM WorkoutSet ws JOIN ws.workout w WHERE w.user.id = :userId")
     Double findHighestEstimated1RM(@Param("userId") String userId);
+
+    // Recent PRs: top N sets flagged as PR, ordered by workout endTime descending
+    @Query("SELECT ws FROM WorkoutSet ws JOIN FETCH ws.exercise JOIN ws.workout w " +
+           "WHERE ws.isPR = true AND w.user.id = :userId AND w.endTime IS NOT NULL " +
+           "ORDER BY w.endTime DESC")
+    List<WorkoutSet> findRecentPrsByUserId(@Param("userId") String userId, Pageable pageable);
 }
+

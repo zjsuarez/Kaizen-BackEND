@@ -3,15 +3,18 @@ package com.kaizen.gym_api.service.impl;
 import com.kaizen.gym_api.dto.response.DashboardResponse;
 import com.kaizen.gym_api.dto.response.LastSessionDTO;
 import com.kaizen.gym_api.dto.response.NextWorkoutDTO;
+import com.kaizen.gym_api.dto.response.RecentPrDTO;
 import com.kaizen.gym_api.model.Routine;
 import com.kaizen.gym_api.model.User;
 import com.kaizen.gym_api.model.Workout;
+import com.kaizen.gym_api.model.WorkoutSet;
 import com.kaizen.gym_api.repository.RoutineRepository;
 import com.kaizen.gym_api.repository.UserRepository;
 import com.kaizen.gym_api.repository.WorkoutRepository;
 import com.kaizen.gym_api.repository.WorkoutSetRepository;
 import com.kaizen.gym_api.service.DashboardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -20,9 +23,10 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -70,6 +74,10 @@ public class DashboardServiceImpl implements DashboardService {
         Integer recoveryTimeHours = calculateRecoveryTimeHours(lastSession);
         Integer workoutStreak = calculateWorkoutStreak(userId);
 
+        // ── KAN-54: Calendar & Recent PRs ──
+        List<LocalDate> trainingDaysThisMonth = buildTrainingDaysThisMonth(userId);
+        List<RecentPrDTO> recentPrs = buildRecentPrs(userId);
+
         return DashboardResponse.builder()
                 .totalSessions(totalSessions)
                 .avgDurationMinutes(avgDurationMinutes)
@@ -80,6 +88,8 @@ public class DashboardServiceImpl implements DashboardService {
                 .nextWorkout(nextWorkout)
                 .recoveryTimeHours(recoveryTimeHours)
                 .workoutStreak(workoutStreak)
+                .trainingDaysThisMonth(trainingDaysThisMonth)
+                .recentPrs(recentPrs)
                 .build();
     }
 
@@ -211,5 +221,41 @@ public class DashboardServiceImpl implements DashboardService {
         }
 
         return streak;
+    }
+
+    // Calendar - distinct training days in the current month
+    private List<LocalDate> buildTrainingDaysThisMonth(String userId) {
+        LocalDate today = LocalDate.now();
+        List<java.sql.Date> sqlDates = workoutRepository.findTrainingDaysByUserIdAndMonth(
+                userId, today.getYear(), today.getMonthValue());
+
+        if (sqlDates == null || sqlDates.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        return sqlDates.stream()
+                .map(java.sql.Date::toLocalDate)
+                .collect(Collectors.toList());
+    }
+
+    // Recent PRs - last 3 personal records
+    private static final int MAX_RECENT_PRS = 3;
+
+    private List<RecentPrDTO> buildRecentPrs(String userId) {
+        List<WorkoutSet> prSets = workoutSetRepository.findRecentPrsByUserId(
+                userId, PageRequest.of(0, MAX_RECENT_PRS));
+
+        if (prSets == null || prSets.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        return prSets.stream().map(ws -> RecentPrDTO.builder()
+                .exerciseName(ws.getExercise().getName())
+                .weight(ws.getWeightKg() != null ? ws.getWeightKg().doubleValue() : null)
+                .reps(ws.getReps())
+                .achievedAt(ws.getWorkout().getEndTime() != null
+                        ? ws.getWorkout().getEndTime().toLocalDateTime()
+                        : null)
+                .build()).collect(Collectors.toList());
     }
 }

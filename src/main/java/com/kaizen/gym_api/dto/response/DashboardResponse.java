@@ -3,6 +3,9 @@ package com.kaizen.gym_api.dto.response;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Data
 @Builder
 public class DashboardResponse {
@@ -15,4 +18,8 @@ public class DashboardResponse {
     private NextWorkoutDTO nextWorkout;
     private Integer recoveryTimeHours;
     private Integer workoutStreak;
+    @Builder.Default
+    private List<LocalDate> trainingDaysThisMonth = List.of();
+    @Builder.Default
+    private List<RecentPrDTO> recentPrs = List.of();
 }
