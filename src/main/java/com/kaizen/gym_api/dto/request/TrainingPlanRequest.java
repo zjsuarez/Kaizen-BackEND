@@ -1,5 +1,6 @@
 package com.kaizen.gym_api.dto.request;
 
+import com.kaizen.gym_api.model.enums.PlanIntervalType;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +20,8 @@ public class TrainingPlanRequest {
 
     private String description;
     private Date startingDate;
+    private PlanIntervalType interval;
+    private Integer cycleLength;
     
     @Builder.Default
     private Boolean isActive = true;

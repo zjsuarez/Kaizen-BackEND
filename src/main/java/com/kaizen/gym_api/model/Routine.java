@@ -1,6 +1,5 @@
 package com.kaizen.gym_api.model;
 
-import com.kaizen.gym_api.model.enums.SchedulingType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,13 +37,6 @@ public class Routine {
 
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "schedulingType")
-    private SchedulingType schedulingType;
-
-    @Column(name = "cycleLength")
-    private Integer cycleLength;
 
     @Column(name = "schedulingValue")
     private String schedulingValue;
