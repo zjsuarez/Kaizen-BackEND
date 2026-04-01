@@ -1,6 +1,5 @@
 package com.kaizen.gym_api.dto.request;
 
-import com.kaizen.gym_api.model.enums.SchedulingType;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,10 +21,6 @@ public class RoutineRequest {
     private String name;
 
     private String description;
-    
-    private SchedulingType schedulingType;
-    
-    private Integer cycleLength;
     
     private String schedulingValue;
     

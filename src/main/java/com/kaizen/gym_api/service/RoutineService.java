@@ -40,8 +40,6 @@ public class RoutineService {
                 .owner(user)
                 .name(request.getName())
                 .description(request.getDescription())
-                .schedulingType(request.getSchedulingType())
-                .cycleLength(request.getCycleLength())
                 .schedulingValue(request.getSchedulingValue())
                 .startingDate(request.getStartingDate())
                 .build();
@@ -84,8 +82,6 @@ public class RoutineService {
 
         routine.setName(request.getName());
         routine.setDescription(request.getDescription());
-        routine.setSchedulingType(request.getSchedulingType());
-        routine.setCycleLength(request.getCycleLength());
         routine.setSchedulingValue(request.getSchedulingValue());
         routine.setStartingDate(request.getStartingDate());
 
@@ -159,8 +155,6 @@ public class RoutineService {
                 .planId(routine.getPlan() != null ? routine.getPlan().getId() : null)
                 .name(routine.getName())
                 .description(routine.getDescription())
-                .schedulingType(routine.getSchedulingType())
-                .cycleLength(routine.getCycleLength())
                 .schedulingValue(routine.getSchedulingValue())
                 .startingDate(routine.getStartingDate())
                 .lastPerformedDate(routine.getLastPerformedDate())

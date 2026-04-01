@@ -1,5 +1,6 @@
 package com.kaizen.gym_api.model;
 
+import com.kaizen.gym_api.model.enums.PlanIntervalType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,9 +42,12 @@ public class TrainingPlan {
     @Builder.Default
     private Boolean isActive = true;
 
-    // Escaped because Interval is a SQL reserved keyword.
-    @Column(name = "`Interval`")
-    private String interval;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "`interval`")
+    private PlanIntervalType interval;
+
+    @Column(name = "cycleLength")
+    private Integer cycleLength;
 
     @CreationTimestamp
     @Column(name = "createdAt", updatable = false, nullable = false)

@@ -1,5 +1,6 @@
 package com.kaizen.gym_api.dto.response;
 
+import com.kaizen.gym_api.model.enums.PlanIntervalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,7 +19,8 @@ public class TrainingPlanResponse {
     private String name;
     private String description;
     private Date startingDate;
-    private String interval;
+    private PlanIntervalType interval;
+    private Integer cycleLength;
     private Boolean isActive;
     private Timestamp createdAt;
 }
