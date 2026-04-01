@@ -1,5 +1,6 @@
 package com.kaizen.gym_api.model;
 
+import com.kaizen.gym_api.model.enums.PlanIntervalType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,6 +41,13 @@ public class TrainingPlan {
     @Column(name = "isActive")
     @Builder.Default
     private Boolean isActive = true;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "`interval`")
+    private PlanIntervalType interval;
+
+    @Column(name = "cycleLength")
+    private Integer cycleLength;
 
     @CreationTimestamp
     @Column(name = "createdAt", updatable = false, nullable = false)

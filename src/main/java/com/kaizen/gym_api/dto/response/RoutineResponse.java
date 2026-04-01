@@ -1,6 +1,5 @@
 package com.kaizen.gym_api.dto.response;
 
-import com.kaizen.gym_api.model.enums.SchedulingType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,8 +19,6 @@ public class RoutineResponse {
     private String planId; // Can be null
     private String name;
     private String description;
-    private SchedulingType schedulingType;
-    private Integer cycleLength;
     private String schedulingValue;
     private Date startingDate;
     private Date lastPerformedDate;
