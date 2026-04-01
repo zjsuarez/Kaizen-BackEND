@@ -18,6 +18,7 @@ public class TrainingPlanResponse {
     private String name;
     private String description;
     private Date startingDate;
+    private String interval;
     private Boolean isActive;
     private Timestamp createdAt;
 }

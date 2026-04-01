@@ -19,6 +19,7 @@ public class TrainingPlanRequest {
 
     private String description;
     private Date startingDate;
+    private String interval;
     
     @Builder.Default
     private Boolean isActive = true;

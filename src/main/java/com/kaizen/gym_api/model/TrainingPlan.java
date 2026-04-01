@@ -41,6 +41,10 @@ public class TrainingPlan {
     @Builder.Default
     private Boolean isActive = true;
 
+    // Escaped because Interval is a SQL reserved keyword.
+    @Column(name = "`Interval`")
+    private String interval;
+
     @CreationTimestamp
     @Column(name = "createdAt", updatable = false, nullable = false)
     private Timestamp createdAt;

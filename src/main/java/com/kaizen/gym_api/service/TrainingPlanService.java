@@ -28,6 +28,7 @@ public class TrainingPlanService {
                 .name(request.getName())
                 .description(request.getDescription())
                 .startingDate(request.getStartingDate())
+                .interval(request.getInterval())
                 .isActive(request.getIsActive() != null ? request.getIsActive() : true)
                 .build();
 
@@ -54,6 +55,7 @@ public class TrainingPlanService {
         plan.setName(request.getName());
         plan.setDescription(request.getDescription());
         plan.setStartingDate(request.getStartingDate());
+        plan.setInterval(request.getInterval());
         if (request.getIsActive() != null) {
             plan.setIsActive(request.getIsActive());
         }
@@ -74,6 +76,7 @@ public class TrainingPlanService {
                 .name(plan.getName())
                 .description(plan.getDescription())
                 .startingDate(plan.getStartingDate())
+                .interval(plan.getInterval())
                 .isActive(plan.getIsActive())
                 .createdAt(plan.getCreatedAt())
                 .build();
