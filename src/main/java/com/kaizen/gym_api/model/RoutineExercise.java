@@ -24,19 +24,9 @@ public class RoutineExercise {
     @JoinColumn(name = "routineId_FK", nullable = false)
     private Routine routine;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "exerciseId_FK", nullable = false)
-    private Exercise exercise;
-
     @Column(name = "orderIndex", nullable = false)
     private Integer orderIndex;
 
     @Column(name = "targetSets")
     private Integer targetSets;
-
-    @Column(name = "targetReps")
-    private Integer targetReps;
-
-    @Column(name = "restSeconds")
-    private Integer restSeconds;
 }
