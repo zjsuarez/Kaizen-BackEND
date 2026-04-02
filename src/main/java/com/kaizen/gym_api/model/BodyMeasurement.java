@@ -6,15 +6,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.UuidGenerator;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 @Entity
-@Table(name = "BodyMeasurements", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"userId_FK", "recordedAt"})
-})
+@Table(name = "BodyMeasurements")
 @Data
 @Builder
 @NoArgsConstructor
@@ -22,7 +20,7 @@ import java.time.LocalDateTime;
 public class BodyMeasurement {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @UuidGenerator
     @Column(name = "id_PK", updatable = false, nullable = false)
     private String id;
 
@@ -30,24 +28,16 @@ public class BodyMeasurement {
     @JoinColumn(name = "userId_FK", nullable = false)
     private User user;
 
-    @Column(name = "weightKg", nullable = false)
-    private Double weightKg;
+    @Column(name = "weightKg", precision = 5, scale = 2)
+    private BigDecimal weightKg;
 
-    @Column(name = "recordedAt", nullable = false)
-    private LocalDate recordedAt;
+    @Column(name = "bodyFatPercentage", precision = 5, scale = 2)
+    private BigDecimal bodyFatPercentage;
+
+    @Column(name = "progressPhotoUrl")
+    private String progressPhotoUrl;
 
     @CreationTimestamp
-    @Column(name = "createdAt", updatable = false, nullable = false)
-    private LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    @Column(name = "updatedAt", nullable = false)
-    private LocalDateTime updatedAt;
-
-    @PrePersist
-    protected void onCreate() {
-        if (recordedAt == null) {
-            recordedAt = LocalDate.now();
-        }
-    }
+    @Column(name = "date", updatable = false, nullable = false)
+    private Timestamp date;
 }
