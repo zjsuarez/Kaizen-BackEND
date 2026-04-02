@@ -5,6 +5,19 @@
         }
     ],
     "settings": {
-        "java.configuration.updateBuildConfiguration": "interactive"
+        "java.configuration.updateBuildConfiguration": "interactive",
+        "java.configuration.runtimes": [
+            {
+                "name": "JavaSE-21",
+                "path": "C:/Program Files/Java/jdk-21",
+                "default": true
+            },
+            {
+                "name": "JavaSE-17",
+                "path": "C:/Program Files/Java/jdk-17"
+            }
+        ],
+        "java.debug.settings.javaHome": "C:/Program Files/Java/jdk-21",
+        "java.jdt.ls.java.home": "C:/Program Files/Java/jdk-21"
     }
 }
