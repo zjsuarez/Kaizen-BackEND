@@ -4,10 +4,12 @@ import com.kaizen.gym_api.dto.response.DashboardResponse;
 import com.kaizen.gym_api.dto.response.LastSessionDTO;
 import com.kaizen.gym_api.dto.response.NextWorkoutDTO;
 import com.kaizen.gym_api.dto.response.RecentPrDTO;
+import com.kaizen.gym_api.model.BodyMeasurement;
 import com.kaizen.gym_api.model.Routine;
 import com.kaizen.gym_api.model.User;
 import com.kaizen.gym_api.model.Workout;
 import com.kaizen.gym_api.model.WorkoutSet;
+import com.kaizen.gym_api.repository.BodyMeasurementRepository;
 import com.kaizen.gym_api.repository.RoutineRepository;
 import com.kaizen.gym_api.repository.UserRepository;
 import com.kaizen.gym_api.repository.WorkoutRepository;
@@ -36,6 +38,7 @@ public class DashboardServiceImpl implements DashboardService {
     private final WorkoutSetRepository workoutSetRepository;
     private final UserRepository userRepository;
     private final RoutineRepository routineRepository;
+    private final BodyMeasurementRepository bodyMeasurementRepository;
 
     @Override
     public DashboardResponse getDashboardMetrics(String email) {
@@ -78,6 +81,17 @@ public class DashboardServiceImpl implements DashboardService {
         List<LocalDate> trainingDaysThisMonth = buildTrainingDaysThisMonth(userId);
         List<RecentPrDTO> recentPrs = buildRecentPrs(userId);
 
+        List<BodyMeasurement> measurements = bodyMeasurementRepository.findByUserOrderByRecordedAtDesc(user);
+        Double currentWeight = 0.0;
+        Double weightDiff = 0.0;
+        if (measurements != null && !measurements.isEmpty()) {
+            currentWeight = measurements.get(0).getWeightKg();
+            if (measurements.size() > 1) {
+                weightDiff = currentWeight - measurements.get(1).getWeightKg();
+                weightDiff = Math.round(weightDiff * 10.0) / 10.0;
+            }
+        }
+
         return DashboardResponse.builder()
                 .totalSessions(totalSessions)
                 .avgDurationMinutes(avgDurationMinutes)
@@ -88,6 +102,8 @@ public class DashboardServiceImpl implements DashboardService {
                 .nextWorkout(nextWorkout)
                 .recoveryTimeHours(recoveryTimeHours)
                 .workoutStreak(workoutStreak)
+                .currentWeight(currentWeight)
+                .weightDiff(weightDiff)
                 .trainingDaysThisMonth(trainingDaysThisMonth)
                 .recentPrs(recentPrs)
                 .build();

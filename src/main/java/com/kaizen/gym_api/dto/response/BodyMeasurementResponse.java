@@ -5,8 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -15,8 +14,7 @@ import java.sql.Timestamp;
 public class BodyMeasurementResponse {
 
     private String id;
-    private BigDecimal weightKg;
-    private BigDecimal bodyFatPercentage;
-    private String progressPhotoUrl;
-    private Timestamp date;
+    private Double weightKg;
+    private LocalDate recordedAt;
+
 }
