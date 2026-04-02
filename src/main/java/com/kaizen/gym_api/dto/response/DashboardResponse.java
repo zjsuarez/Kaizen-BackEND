@@ -18,8 +18,6 @@ public class DashboardResponse {
     private NextWorkoutDTO nextWorkout;
     private Integer recoveryTimeHours;
     private Integer workoutStreak;
-    private Double currentWeight;
-    private Double weightDiff;
     @Builder.Default
     private List<LocalDate> trainingDaysThisMonth = List.of();
     @Builder.Default

@@ -4,10 +4,12 @@ import com.kaizen.gym_api.dto.request.RoutineExerciseRequest;
 import com.kaizen.gym_api.dto.request.RoutineRequest;
 import com.kaizen.gym_api.dto.response.RoutineExerciseResponse;
 import com.kaizen.gym_api.dto.response.RoutineResponse;
+import com.kaizen.gym_api.model.Exercise;
 import com.kaizen.gym_api.model.Routine;
 import com.kaizen.gym_api.model.RoutineExercise;
 import com.kaizen.gym_api.model.TrainingPlan;
 import com.kaizen.gym_api.model.User;
+import com.kaizen.gym_api.repository.ExerciseRepository;
 import com.kaizen.gym_api.repository.RoutineExerciseRepository;
 import com.kaizen.gym_api.repository.RoutineRepository;
 import com.kaizen.gym_api.repository.TrainingPlanRepository;
@@ -27,6 +29,7 @@ public class RoutineService {
     private final RoutineExerciseRepository routineExerciseRepository;
     private final TrainingPlanRepository trainingPlanRepository;
     private final UserRepository userRepository;
+    private final ExerciseRepository exerciseRepository;
 
     @Transactional
     public RoutineResponse createRoutine(String email, RoutineRequest request) {
@@ -116,10 +119,16 @@ public class RoutineService {
         // Create and save new exercises
         int orderIndex = 0;
         for (RoutineExerciseRequest req : exerciseRequests) {
+            Exercise exercise = exerciseRepository.findById(req.getExerciseId())
+                    .orElseThrow(() -> new RuntimeException("Exercise not found with ID: " + req.getExerciseId()));
+
             RoutineExercise re = RoutineExercise.builder()
                     .routine(routine)
+                    .exercise(exercise)
                     .orderIndex(orderIndex++)
                     .targetSets(req.getTargetSets())
+                    .targetReps(req.getTargetReps())
+                    .restSeconds(req.getRestSeconds())
                     .build();
 
             routineExerciseRepository.save(re);
@@ -132,8 +141,12 @@ public class RoutineService {
     private RoutineResponse mapToResponse(Routine routine, List<RoutineExercise> exercises) {
         List<RoutineExerciseResponse> exerciseResponses = exercises.stream().map(ex -> RoutineExerciseResponse.builder()
                 .id(ex.getId())
+                .exerciseId(ex.getExercise().getId())
+                .exerciseName(ex.getExercise().getName())
                 .orderIndex(ex.getOrderIndex())
                 .targetSets(ex.getTargetSets())
+                .targetReps(ex.getTargetReps())
+                .restSeconds(ex.getRestSeconds())
                 .build()
         ).collect(Collectors.toList());
 
