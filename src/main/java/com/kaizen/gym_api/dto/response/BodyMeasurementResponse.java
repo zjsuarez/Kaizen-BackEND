@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class BodyMeasurementResponse {
 
-    private Long id;
+    private String id;
     private Double weightKg;
     private LocalDate recordedAt;
 

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface BodyMeasurementRepository extends JpaRepository<BodyMeasurement, Long> {
+public interface BodyMeasurementRepository extends JpaRepository<BodyMeasurement, String> {
 
     List<BodyMeasurement> findByUserOrderByRecordedAtDesc(User user);
 

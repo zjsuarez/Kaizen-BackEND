@@ -22,9 +22,9 @@ import java.time.LocalDateTime;
 public class BodyMeasurement {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_PK", updatable = false, nullable = false)
-    private Long id;
+    private String id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId_FK", nullable = false)
