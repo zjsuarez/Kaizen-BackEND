@@ -12,10 +12,6 @@ import lombok.NoArgsConstructor;
 public class RoutineExerciseResponse {
 
     private String id;
-    private String exerciseId;
-    private String exerciseName;
     private Integer orderIndex;
     private Integer targetSets;
-    private Integer targetReps;
-    private Integer restSeconds;
 }
