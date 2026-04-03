@@ -12,4 +12,6 @@ import lombok.NoArgsConstructor;
 public class RoutineExerciseRequest {
 
     private Integer targetSets;
+    private String customExerciseId;
+    private String builtinExerciseKey;
 }

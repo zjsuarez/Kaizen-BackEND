@@ -29,4 +29,11 @@ public class RoutineExercise {
 
     @Column(name = "targetSets")
     private Integer targetSets;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customExerciseId_FK")
+    private Exercise customExercise;
+
+    @Column(name = "builtinExerciseKey")
+    private String builtinExerciseKey;
 }

@@ -14,4 +14,6 @@ public class RoutineExerciseResponse {
     private String id;
     private Integer orderIndex;
     private Integer targetSets;
+    private String customExerciseId;
+    private String builtinExerciseKey;
 }
