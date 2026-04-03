@@ -8,6 +8,8 @@ import com.kaizen.gym_api.model.Routine;
 import com.kaizen.gym_api.model.RoutineExercise;
 import com.kaizen.gym_api.model.TrainingPlan;
 import com.kaizen.gym_api.model.User;
+import com.kaizen.gym_api.model.Exercise;
+import com.kaizen.gym_api.repository.ExerciseRepository;
 import com.kaizen.gym_api.repository.RoutineExerciseRepository;
 import com.kaizen.gym_api.repository.RoutineRepository;
 import com.kaizen.gym_api.repository.TrainingPlanRepository;
@@ -27,6 +29,7 @@ public class RoutineService {
     private final RoutineExerciseRepository routineExerciseRepository;
     private final TrainingPlanRepository trainingPlanRepository;
     private final UserRepository userRepository;
+    private final ExerciseRepository exerciseRepository;
 
     @Transactional
     public RoutineResponse createRoutine(String email, RoutineRequest request) {
@@ -116,10 +119,29 @@ public class RoutineService {
         // Create and save new exercises
         int orderIndex = 0;
         for (RoutineExerciseRequest req : exerciseRequests) {
+            String customExerciseId = req.getCustomExerciseId();
+            String builtinExerciseKey = req.getBuiltinExerciseKey();
+
+            boolean hasCustomExercise = customExerciseId != null && !customExerciseId.isBlank();
+            boolean hasBuiltinExercise = builtinExerciseKey != null && !builtinExerciseKey.isBlank();
+
+            if (hasCustomExercise == hasBuiltinExercise) {
+                throw new RuntimeException("Exactly one of customExerciseId or builtinExerciseKey must be provided");
+            }
+
+            Exercise customExercise = null;
+            if (hasCustomExercise) {
+                customExercise = exerciseRepository
+                        .findByIdAndCreatedByUser_EmailAndIsCustomTrue(customExerciseId, email)
+                        .orElseThrow(() -> new RuntimeException("Custom exercise not found or does not belong to user"));
+            }
+
             RoutineExercise re = RoutineExercise.builder()
                     .routine(routine)
                     .orderIndex(orderIndex++)
                     .targetSets(req.getTargetSets())
+                    .customExercise(customExercise)
+                    .builtinExerciseKey(hasBuiltinExercise ? builtinExerciseKey.trim() : null)
                     .build();
 
             routineExerciseRepository.save(re);
@@ -134,6 +156,8 @@ public class RoutineService {
                 .id(ex.getId())
                 .orderIndex(ex.getOrderIndex())
                 .targetSets(ex.getTargetSets())
+            .customExerciseId(ex.getCustomExercise() != null ? ex.getCustomExercise().getId() : null)
+            .builtinExerciseKey(ex.getBuiltinExerciseKey())
                 .build()
         ).collect(Collectors.toList());
 
