@@ -266,7 +266,9 @@ public class DashboardServiceImpl implements DashboardService {
         }
 
         return prSets.stream().map(ws -> RecentPrDTO.builder()
-                .exerciseName(ws.getExercise().getName())
+            .exerciseName(ws.getCustomExercise() != null
+                ? ws.getCustomExercise().getName()
+                : ws.getBuiltinExerciseKey())
                 .weight(ws.getWeightKg() != null ? ws.getWeightKg().doubleValue() : null)
                 .reps(ws.getReps())
                 .achievedAt(ws.getWorkout().getEndTime() != null

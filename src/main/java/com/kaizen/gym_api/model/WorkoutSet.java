@@ -28,8 +28,11 @@ public class WorkoutSet {
     private Workout workout;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "exerciseId_FK", nullable = false)
-    private Exercise exercise;
+    @JoinColumn(name = "customExerciseId_FK")
+    private Exercise customExercise;
+
+    @Column(name = "builtinExerciseKey")
+    private String builtinExerciseKey;
 
     @Column(name = "setNumber", nullable = false)
     private Integer setNumber;
