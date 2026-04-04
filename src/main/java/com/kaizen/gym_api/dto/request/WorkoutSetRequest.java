@@ -1,7 +1,6 @@
 package com.kaizen.gym_api.dto.request;
 
 import com.kaizen.gym_api.model.enums.WorkoutSetType;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,8 +14,8 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class WorkoutSetRequest {
 
-    @NotBlank(message = "Exercise ID is mandatory")
-    private String exerciseId;
+    private String customExerciseId;
+    private String builtinExerciseKey;
 
     private Integer setNumber;
 

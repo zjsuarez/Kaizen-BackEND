@@ -55,13 +55,31 @@ public class WorkoutService {
         List<WorkoutSet> savedSets = List.of();
         if (request.getSets() != null && !request.getSets().isEmpty()) {
             savedSets = request.getSets().stream().map(req -> {
-                Exercise exercise = exerciseRepository.findById(req.getExerciseId())
-                        .orElseThrow(() -> new RuntimeException("Exercise not found"));
+                String customExerciseId = req.getCustomExerciseId();
+                String builtinExerciseKey = req.getBuiltinExerciseKey();
+
+                boolean hasCustomExercise = customExerciseId != null && !customExerciseId.isBlank();
+                boolean hasBuiltinExercise = builtinExerciseKey != null && !builtinExerciseKey.isBlank();
+
+                if (hasCustomExercise == hasBuiltinExercise) {
+                    throw new RuntimeException("Exactly one of customExerciseId or builtinExerciseKey must be provided");
+                }
+
+                Exercise customExercise = null;
+                if (hasCustomExercise) {
+                    customExercise = exerciseRepository
+                            .findByIdAndCreatedByUser_EmailAndIsCustomTrue(customExerciseId, email)
+                            .orElseThrow(() -> new RuntimeException("Custom exercise not found or does not belong to user"));
+                }
+
+                String normalizedBuiltinExerciseKey = hasBuiltinExercise ? builtinExerciseKey.trim() : null;
 
                 // PR Detection logic
                 boolean isPR = false;
                 if (req.getWeightKg() != null && req.getReps() != null) {
-                    BigDecimal maxHistoricVolume = workoutSetRepository.findMaxVolumeByExerciseAndUser(email, exercise.getId());
+                    BigDecimal maxHistoricVolume = hasCustomExercise
+                            ? workoutSetRepository.findMaxVolumeByCustomExerciseAndUser(email, customExercise.getId())
+                            : workoutSetRepository.findMaxVolumeByBuiltinExerciseKeyAndUser(email, normalizedBuiltinExerciseKey);
                     BigDecimal currentVolume = req.getWeightKg().multiply(new BigDecimal(req.getReps()));
                     
                     if (maxHistoricVolume == null || currentVolume.compareTo(maxHistoricVolume) > 0) {
@@ -71,7 +89,8 @@ public class WorkoutService {
 
                 WorkoutSet set = WorkoutSet.builder()
                         .workout(savedWorkout)
-                        .exercise(exercise)
+                    .customExercise(customExercise)
+                    .builtinExerciseKey(normalizedBuiltinExerciseKey)
                         .setNumber(req.getSetNumber())
                         .weightKg(req.getWeightKg())
                         .reps(req.getReps())
@@ -113,8 +132,9 @@ public class WorkoutService {
     private WorkoutResponse mapToResponse(Workout workout, List<WorkoutSet> sets) {
         List<WorkoutSetResponse> setResponses = sets.stream().map(s -> WorkoutSetResponse.builder()
                 .id(s.getId())
-                .exerciseId(s.getExercise().getId())
-                .exerciseName(s.getExercise().getName())
+                .customExerciseId(s.getCustomExercise() != null ? s.getCustomExercise().getId() : null)
+                .builtinExerciseKey(s.getBuiltinExerciseKey())
+                .exerciseName(s.getCustomExercise() != null ? s.getCustomExercise().getName() : null)
                 .setNumber(s.getSetNumber())
                 .weightKg(s.getWeightKg())
                 .reps(s.getReps())
