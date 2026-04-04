@@ -18,8 +18,12 @@ public interface WorkoutSetRepository extends JpaRepository<WorkoutSet, String> 
     List<WorkoutSet> findByWorkout_IdOrderBySetNumberAsc(String workoutId);
 
     @Query("SELECT MAX(ws.weightKg * ws.reps) FROM WorkoutSet ws " +
-           "WHERE ws.workout.user.email = :email AND ws.exercise.id = :exerciseId")
-    BigDecimal findMaxVolumeByExerciseAndUser(@Param("email") String email, @Param("exerciseId") String exerciseId);
+           "WHERE ws.workout.user.email = :email AND ws.customExercise.id = :exerciseId")
+    BigDecimal findMaxVolumeByCustomExerciseAndUser(@Param("email") String email, @Param("exerciseId") String exerciseId);
+
+    @Query("SELECT MAX(ws.weightKg * ws.reps) FROM WorkoutSet ws " +
+           "WHERE ws.workout.user.email = :email AND ws.builtinExerciseKey = :builtinExerciseKey")
+    BigDecimal findMaxVolumeByBuiltinExerciseKeyAndUser(@Param("email") String email, @Param("builtinExerciseKey") String builtinExerciseKey);
 
     @Query("SELECT SUM(ws.weightKg * ws.reps) FROM WorkoutSet ws JOIN ws.workout w " +
            "WHERE w.user.id = :userId AND w.startTime >= :startOfWeek AND w.startTime <= :endOfWeek")
@@ -35,7 +39,7 @@ public interface WorkoutSetRepository extends JpaRepository<WorkoutSet, String> 
     Double findHighestEstimated1RM(@Param("userId") String userId);
 
     // Recent PRs: top N sets flagged as PR, ordered by workout endTime descending
-    @Query("SELECT ws FROM WorkoutSet ws JOIN FETCH ws.exercise JOIN ws.workout w " +
+       @Query("SELECT ws FROM WorkoutSet ws JOIN ws.workout w " +
            "WHERE ws.isPR = true AND w.user.id = :userId AND w.endTime IS NOT NULL " +
            "ORDER BY w.endTime DESC")
     List<WorkoutSet> findRecentPrsByUserId(@Param("userId") String userId, Pageable pageable);

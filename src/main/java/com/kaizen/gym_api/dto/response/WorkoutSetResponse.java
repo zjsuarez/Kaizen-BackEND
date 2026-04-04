@@ -15,7 +15,8 @@ import java.math.BigDecimal;
 public class WorkoutSetResponse {
 
     private String id;
-    private String exerciseId;
+    private String customExerciseId;
+    private String builtinExerciseKey;
     private String exerciseName;
     private Integer setNumber;
     private BigDecimal weightKg;
