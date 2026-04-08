@@ -242,16 +242,14 @@ public class DashboardServiceImpl implements DashboardService {
     // Calendar - distinct training days in the current month
     private List<LocalDate> buildTrainingDaysThisMonth(String userId) {
         LocalDate today = LocalDate.now();
-        List<java.sql.Date> sqlDates = workoutRepository.findTrainingDaysByUserIdAndMonth(
+        List<LocalDate> trainingDates = workoutRepository.findTrainingDaysByUserIdAndMonth(
                 userId, today.getYear(), today.getMonthValue());
 
-        if (sqlDates == null || sqlDates.isEmpty()) {
+        if (trainingDates == null || trainingDates.isEmpty()) {
             return Collections.emptyList();
         }
 
-        return sqlDates.stream()
-                .map(java.sql.Date::toLocalDate)
-                .collect(Collectors.toList());
+        return trainingDates;
     }
 
     // Recent PRs - last 3 personal records

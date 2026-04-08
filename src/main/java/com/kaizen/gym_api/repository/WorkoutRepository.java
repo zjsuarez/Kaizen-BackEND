@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +37,7 @@ public interface WorkoutRepository extends JpaRepository<Workout, String> {
             "WHERE userId_FK = :userId AND endTime IS NOT NULL " +
             "AND YEAR(endTime) = :year AND MONTH(endTime) = :month " +
             "ORDER BY CAST(endTime AS DATE) ASC", nativeQuery = true)
-    List<java.sql.Date> findTrainingDaysByUserIdAndMonth(
+    List<LocalDate> findTrainingDaysByUserIdAndMonth(
             @Param("userId") String userId,
             @Param("year") int year,
             @Param("month") int month);
