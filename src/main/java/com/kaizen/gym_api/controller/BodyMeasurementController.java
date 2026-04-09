@@ -27,7 +27,7 @@ public class BodyMeasurementController {
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<BodyMeasurementResponse> logWeight(
             @Valid @ModelAttribute BodyMeasurementRequest request,
-            @RequestPart("progressPhoto") MultipartFile progressPhoto) {
+            @RequestPart(value = "progressPhoto", required = false) MultipartFile progressPhoto) {
         
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
