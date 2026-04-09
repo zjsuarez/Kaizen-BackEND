@@ -15,6 +15,8 @@ public class BodyMeasurementResponse {
 
     private String id;
     private Double weightKg;
+    private Double bodyFatPercentage;
+    private String progressPhotoUrl;
     private LocalDate recordedAt;
 
 }

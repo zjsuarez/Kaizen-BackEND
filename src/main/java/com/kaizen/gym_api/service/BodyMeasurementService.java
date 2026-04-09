@@ -5,13 +5,14 @@ import com.kaizen.gym_api.dto.response.BodyMeasurementResponse;
 import com.kaizen.gym_api.model.BodyMeasurement;
 import com.kaizen.gym_api.model.User;
 import com.kaizen.gym_api.repository.BodyMeasurementRepository;
+import com.kaizen.gym_api.service.storage.DigitalOceanSpacesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,23 +20,31 @@ import java.util.stream.Collectors;
 public class BodyMeasurementService {
 
     private final BodyMeasurementRepository repository;
+    private final DigitalOceanSpacesService digitalOceanSpacesService;
 
     @Transactional
-    public BodyMeasurementResponse logWeight(User user, BodyMeasurementRequest request) {
+    public BodyMeasurementResponse logWeight(User user, BodyMeasurementRequest request, MultipartFile progressPhoto) {
         LocalDate today = LocalDate.now();
-        Optional<BodyMeasurement> existingOpt = repository.findByUserAndRecordedAt(user, today);
 
-        BodyMeasurement measurement;
-        if (existingOpt.isPresent()) {
-            measurement = existingOpt.get();
-            measurement.setWeightKg(request.getWeightKg());
-        } else {
-            measurement = BodyMeasurement.builder()
-                    .user(user)
-                    .weightKg(request.getWeightKg())
-                    .recordedAt(today)
-                    .build();
+        boolean hasWeight = request.getWeightKg() != null;
+        boolean hasBodyFat = request.getBodyFatPercentage() != null;
+        boolean hasPhoto = progressPhoto != null && !progressPhoto.isEmpty();
+
+        if (!hasWeight && !hasBodyFat && !hasPhoto) {
+            throw new IllegalArgumentException("At least one field is required: weightKg, bodyFatPercentage or progressPhoto");
         }
+
+        String progressPhotoUrl = hasPhoto
+                ? digitalOceanSpacesService.uploadProgressPhoto(user.getId(), progressPhoto)
+                : null;
+
+        BodyMeasurement measurement = BodyMeasurement.builder()
+                .user(user)
+                .weightKg(hasWeight ? request.getWeightKg() : null)
+                .bodyFatPercentage(hasBodyFat ? request.getBodyFatPercentage() : null)
+                .progressPhotoUrl(progressPhotoUrl)
+                .recordedAt(today)
+                .build();
 
         BodyMeasurement saved = repository.save(measurement);
         return mapToResponse(saved);
@@ -52,6 +61,8 @@ public class BodyMeasurementService {
         return BodyMeasurementResponse.builder()
                 .id(entity.getId())
                 .weightKg(entity.getWeightKg())
+                .bodyFatPercentage(entity.getBodyFatPercentage())
+                .progressPhotoUrl(entity.getProgressPhotoUrl())
                 .recordedAt(entity.getRecordedAt())
                 .build();
     }

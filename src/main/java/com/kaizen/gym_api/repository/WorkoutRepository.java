@@ -37,7 +37,7 @@ public interface WorkoutRepository extends JpaRepository<Workout, String> {
             "WHERE userId_FK = :userId AND endTime IS NOT NULL " +
             "AND YEAR(endTime) = :year AND MONTH(endTime) = :month " +
             "ORDER BY CAST(endTime AS DATE) ASC", nativeQuery = true)
-        List<LocalDate> findTrainingDaysByUserIdAndMonth(
+    List<LocalDate> findTrainingDaysByUserIdAndMonth(
             @Param("userId") String userId,
             @Param("year") int year,
             @Param("month") int month);
