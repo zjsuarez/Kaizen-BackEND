@@ -33,6 +33,12 @@ public class BodyMeasurement {
     @Column(name = "weightKg", nullable = false)
     private Double weightKg;
 
+    @Column(name = "bodyFatPercentage")
+    private Double bodyFatPercentage;
+
+    @Column(name = "progressPhotoUrl")
+    private String progressPhotoUrl;
+
     @Column(name = "recordedAt", nullable = false)
     private LocalDate recordedAt;
 
