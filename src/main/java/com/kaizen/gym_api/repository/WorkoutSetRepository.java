@@ -43,5 +43,8 @@ public interface WorkoutSetRepository extends JpaRepository<WorkoutSet, String> 
            "WHERE ws.isPR = true AND w.user.id = :userId AND w.endTime IS NOT NULL " +
            "ORDER BY w.endTime DESC")
     List<WorkoutSet> findRecentPrsByUserId(@Param("userId") String userId, Pageable pageable);
+
+    @Query("SELECT AVG(ws.rpe) FROM WorkoutSet ws WHERE ws.workout.id = :workoutId AND ws.rpe IS NOT NULL")
+    Double calculateAverageRpeByWorkoutId(@Param("workoutId") String workoutId);
 }
 

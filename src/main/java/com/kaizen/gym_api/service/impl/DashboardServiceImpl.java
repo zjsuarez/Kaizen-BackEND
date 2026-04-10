@@ -199,11 +199,19 @@ public class DashboardServiceImpl implements DashboardService {
 
     // Recovery time - hours since last completed workout
     private Integer calculateRecoveryTimeHours(LastSessionDTO lastSession) {
-        if (lastSession == null || lastSession.getCompletedAt() == null) {
-            return null;
+        if (lastSession == null || lastSession.getCompletedAt() == null || lastSession.getWorkoutId() == null) {
+            return 0;
         }
-        long hours = ChronoUnit.HOURS.between(lastSession.getCompletedAt(), LocalDateTime.now());
-        return (int) hours;
+
+        Double avgRpe = workoutSetRepository.calculateAverageRpeByWorkoutId(lastSession.getWorkoutId());
+        double avgRpeVal = (avgRpe != null) ? avgRpe : 0.0;
+        int durationMinutes = lastSession.getDurationMinutes() != null ? lastSession.getDurationMinutes() : 0;
+
+        double initialFatigue = 12.0 + (avgRpeVal * 2.5) + (durationMinutes / 10.0);
+        long hoursSinceWorkoutEnded = ChronoUnit.HOURS.between(lastSession.getCompletedAt(), LocalDateTime.now());
+
+        int currentRecoveryHours = (int) Math.round(initialFatigue - hoursSinceWorkoutEnded);
+        return Math.max(0, currentRecoveryHours);
     }
 
     // Workout Streak - 96-Hour Rule (based on muscle recovery science)
