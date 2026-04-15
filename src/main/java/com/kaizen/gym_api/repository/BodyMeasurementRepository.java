@@ -18,9 +18,10 @@ public interface BodyMeasurementRepository extends JpaRepository<BodyMeasurement
 
     Optional<BodyMeasurement> findByUserAndRecordedAt(User user, LocalDate date);
 
-    // Statistics: Body Weight Trend - Lightweight projection (date + weight only)
-    @Query("SELECT bm.recordedAt, bm.weightKg FROM BodyMeasurement bm " +
+    // Statistics: Body Weight Trend - Lightweight projection grouped by date
+    @Query("SELECT bm.recordedAt, AVG(bm.weightKg) FROM BodyMeasurement bm " +
             "WHERE bm.user.id = :userId AND bm.weightKg IS NOT NULL " +
+            "GROUP BY bm.recordedAt " +
             "ORDER BY bm.recordedAt ASC")
     List<Object[]> findWeightTrendByUserId(@Param("userId") String userId);
 }
