@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UuidGenerator;
 
 @Entity
@@ -22,6 +24,7 @@ public class RoutineExercise {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "routineId_FK", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Routine routine;
 
     @Column(name = "orderIndex", nullable = false)
