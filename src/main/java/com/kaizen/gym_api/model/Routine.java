@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.sql.Date;
@@ -26,10 +28,12 @@ public class Routine {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ownerId_FK", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User owner;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "planId_FK")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private TrainingPlan plan;
 
     @Column(name = "name", nullable = false)

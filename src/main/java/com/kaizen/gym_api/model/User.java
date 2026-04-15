@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 
@@ -43,6 +45,7 @@ public class User {
 
     @ElementCollection(targetClass = EquipmentType.class, fetch = FetchType.LAZY)
     @CollectionTable(name = "UserEquipment", joinColumns = @JoinColumn(name = "userId_FK", columnDefinition = "CHAR(36)"))
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @Enumerated(EnumType.STRING)
     @Column(name = "equipmentType")
     private Set<EquipmentType> equipmentAvailable;
