@@ -15,6 +15,22 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface WorkoutSetRepository extends JpaRepository<WorkoutSet, String> {
 
+       // ──────────────────────────────────────────────────────────────
+       // JPA Projection Interfaces for Statistics Queries
+       // ──────────────────────────────────────────────────────────────
+
+       /**
+        * Projection for rep range distribution aggregate.
+        * Column aliases in the native SQL must exactly match these getter names
+        * (case-insensitive: strengthCount → getStrengthCount).
+        */
+       interface RepRangeProjection {
+              Long getStrengthCount();
+              Long getHypertrophyCount();
+              Long getEnduranceCount();
+       }
+
+
        List<WorkoutSet> findByWorkout_IdOrderBySetNumberAsc(String workoutId);
 
        @Query("SELECT MAX(ws.weightKg * ws.reps) FROM WorkoutSet ws " +
@@ -76,4 +92,84 @@ public interface WorkoutSetRepository extends JpaRepository<WorkoutSet, String> 
                      "ORDER BY trendDate ASC", nativeQuery = true)
        List<Object[]> find1RMTrendByBuiltinExercise(@Param("userId") String userId,
                      @Param("exerciseKey") String exerciseKey);
+
+       // ──────────────────────────────────────────────────────────────
+       // Statistics: Weekly Volume Trend (Tonnage)
+       // ──────────────────────────────────────────────────────────────
+       @Query(value =
+              "SELECT DATE(DATE_ADD(w.endTime, INTERVAL(2 - DAYOFWEEK(w.endTime)) DAY)) AS weekStart, " +
+              "ROUND(SUM(ws.weightKg * ws.reps), 2) AS totalVolume " +
+              "FROM WorkoutSets ws " +
+              "JOIN Workouts w ON ws.workoutId_FK = w.id_PK " +
+              "WHERE w.userId_FK = :userId " +
+              "AND w.endTime IS NOT NULL " +
+              "AND ws.weightKg IS NOT NULL AND ws.reps IS NOT NULL AND ws.reps > 0 " +
+              "AND (:startDate IS NULL OR w.endTime >= :startDate) " +
+              "AND (:endDate IS NULL OR w.endTime <= :endDate) " +
+              "GROUP BY weekStart ORDER BY weekStart ASC", nativeQuery = true)
+       List<Object[]> findWeeklyVolumeTrend(@Param("userId") String userId,
+              @Param("startDate") Timestamp startDate,
+              @Param("endDate") Timestamp endDate);
+
+       // ──────────────────────────────────────────────────────────────
+       // Statistics: Monthly Volume Trend (Tonnage)
+       // ──────────────────────────────────────────────────────────────
+       @Query(value =
+              "SELECT DATE(CONCAT(YEAR(w.endTime), '-', LPAD(MONTH(w.endTime), 2, '0'), '-01')) AS monthStart, " +
+              "ROUND(SUM(ws.weightKg * ws.reps), 2) AS totalVolume " +
+              "FROM WorkoutSets ws " +
+              "JOIN Workouts w ON ws.workoutId_FK = w.id_PK " +
+              "WHERE w.userId_FK = :userId " +
+              "AND w.endTime IS NOT NULL " +
+              "AND ws.weightKg IS NOT NULL AND ws.reps IS NOT NULL AND ws.reps > 0 " +
+              "AND (:startDate IS NULL OR w.endTime >= :startDate) " +
+              "AND (:endDate IS NULL OR w.endTime <= :endDate) " +
+              "GROUP BY YEAR(w.endTime), MONTH(w.endTime) ORDER BY monthStart ASC", nativeQuery = true)
+       List<Object[]> findMonthlyVolumeTrend(@Param("userId") String userId,
+              @Param("startDate") Timestamp startDate,
+              @Param("endDate") Timestamp endDate);
+
+       // ──────────────────────────────────────────────────────────────
+       // Statistics: Rep Range Distribution (single-row aggregate)
+       // JPA maps named SQL columns to projection getter names automatically.
+       // ──────────────────────────────────────────────────────────────
+       @Query(value =
+              "SELECT " +
+              "SUM(CASE WHEN ws.reps BETWEEN 1 AND 5 THEN 1 ELSE 0 END) AS strengthCount, " +
+              "SUM(CASE WHEN ws.reps BETWEEN 6 AND 12 THEN 1 ELSE 0 END) AS hypertrophyCount, " +
+              "SUM(CASE WHEN ws.reps >= 13 THEN 1 ELSE 0 END) AS enduranceCount " +
+              "FROM WorkoutSets ws " +
+              "JOIN Workouts w ON ws.workoutId_FK = w.id_PK " +
+              "WHERE w.userId_FK = :userId " +
+              "AND w.endTime IS NOT NULL " +
+              "AND ws.reps IS NOT NULL AND ws.reps > 0 " +
+              "AND (:startDate IS NULL OR w.endTime >= :startDate) " +
+              "AND (:endDate IS NULL OR w.endTime <= :endDate)", nativeQuery = true)
+       List<RepRangeProjection> findRepRangeDistribution(@Param("userId") String userId,
+              @Param("startDate") Timestamp startDate,
+              @Param("endDate") Timestamp endDate);
+
+       // ──────────────────────────────────────────────────────────────
+       // Statistics: Muscle Group Frequency
+       //
+       // COALESCE-based Query: for each WorkoutSet, Exercises is joined via
+       // LEFT JOINs on either the custom FK OR the builtin key.
+       // ──────────────────────────────────────────────────────────────
+       @Query(value =
+              "SELECT COALESCE(e1.muscleTarget, e2.muscleTarget) AS muscleTarget, COUNT(*) AS hitCount " +
+              "FROM WorkoutSets ws " +
+              "JOIN Workouts w ON ws.workoutId_FK = w.id_PK " +
+              "LEFT JOIN Exercises e1 ON ws.customExerciseId_FK = e1.id_PK " +
+              "LEFT JOIN Exercises e2 ON ws.builtinExerciseKey = e2.name AND e2.isCustom = false " +
+              "WHERE w.userId_FK = :userId " +
+              "AND w.endTime IS NOT NULL " +
+              "AND COALESCE(e1.muscleTarget, e2.muscleTarget) IS NOT NULL " +
+              "AND (:startDate IS NULL OR w.endTime >= :startDate) " +
+              "AND (:endDate IS NULL OR w.endTime <= :endDate) " +
+              "GROUP BY COALESCE(e1.muscleTarget, e2.muscleTarget) " +
+              "ORDER BY hitCount DESC", nativeQuery = true)
+       List<Object[]> findMuscleFrequency(@Param("userId") String userId,
+              @Param("startDate") Timestamp startDate,
+              @Param("endDate") Timestamp endDate);
 }
+

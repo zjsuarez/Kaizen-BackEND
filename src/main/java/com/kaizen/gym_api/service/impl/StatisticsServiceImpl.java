@@ -1,20 +1,28 @@
 package com.kaizen.gym_api.service.impl;
 
 import com.kaizen.gym_api.dto.response.BodyWeightTrendResponse;
+import com.kaizen.gym_api.dto.response.MuscleFrequencyResponse;
 import com.kaizen.gym_api.dto.response.OneRepMaxTrendResponse;
+import com.kaizen.gym_api.dto.response.RepRangeDistributionResponse;
 import com.kaizen.gym_api.dto.response.TrendPointDTO;
+import com.kaizen.gym_api.dto.response.VolumeTrendResponse;
 import com.kaizen.gym_api.model.Exercise;
 import com.kaizen.gym_api.model.User;
 import com.kaizen.gym_api.repository.BodyMeasurementRepository;
 import com.kaizen.gym_api.repository.ExerciseRepository;
 import com.kaizen.gym_api.repository.UserRepository;
 import com.kaizen.gym_api.repository.WorkoutSetRepository;
+import com.kaizen.gym_api.repository.WorkoutSetRepository.RepRangeProjection;
 import com.kaizen.gym_api.service.StatisticsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,7 +37,12 @@ public class StatisticsServiceImpl implements StatisticsService {
     private final BodyMeasurementRepository bodyMeasurementRepository;
     private final ExerciseRepository exerciseRepository;
 
+    /** Threshold in days: if the requested date range exceeds this, group by month instead of week. */
+    private static final long MONTHLY_GROUPING_THRESHOLD_DAYS = 90;
+
+    // ──────────────────────────────────────────────────────────────
     // Endpoint: Estimated 1RM Trend
+    // ──────────────────────────────────────────────────────────────
 
     @Override
     public OneRepMaxTrendResponse getOneRepMaxTrend(String email, String exerciseId, String exerciseKey) {
@@ -64,7 +77,9 @@ public class StatisticsServiceImpl implements StatisticsService {
                 .build();
     }
 
+    // ──────────────────────────────────────────────────────────────
     // Endpoint: Body Weight Trend
+    // ──────────────────────────────────────────────────────────────
 
     @Override
     public BodyWeightTrendResponse getBodyWeightTrend(String email) {
@@ -84,7 +99,130 @@ public class StatisticsServiceImpl implements StatisticsService {
                 .build();
     }
 
+    // ──────────────────────────────────────────────────────────────
+    // Endpoint: Weekly / Monthly Volume Trend (Tonnage)
+    // ──────────────────────────────────────────────────────────────
+
+    @Override
+    public VolumeTrendResponse getVolumeTrend(String email, LocalDate start, LocalDate end) {
+        User user = resolveUser(email);
+        String userId = user.getId();
+
+        Timestamp startTs = toStartOfDayTimestamp(start);
+        Timestamp endTs = toEndOfDayTimestamp(end);
+
+        // Auto-select grouping: MONTHLY if date range > 90 days, WEEKLY otherwise
+        String grouping = determineGrouping(start, end);
+
+        List<Object[]> rawTrend;
+        if ("MONTHLY".equals(grouping)) {
+            rawTrend = workoutSetRepository.findMonthlyVolumeTrend(userId, startTs, endTs);
+        } else {
+            rawTrend = workoutSetRepository.findWeeklyVolumeTrend(userId, startTs, endTs);
+        }
+
+        List<TrendPointDTO> dataPoints = mapToTrendPoints(rawTrend);
+
+        return VolumeTrendResponse.builder()
+                .grouping(grouping)
+                .dataPoints(dataPoints)
+                .build();
+    }
+
+    // ──────────────────────────────────────────────────────────────
+    // Endpoint: Rep Range Distribution
+    // ──────────────────────────────────────────────────────────────
+
+    @Override
+    public RepRangeDistributionResponse getRepRangeDistribution(String email, LocalDate start, LocalDate end) {
+        User user = resolveUser(email);
+        String userId = user.getId();
+
+        Timestamp startTs = toStartOfDayTimestamp(start);
+        Timestamp endTs = toEndOfDayTimestamp(end);
+
+        // Query returns a single-row projection; get(0) is safe — aggregate always returns 1 row.
+        List<RepRangeProjection> results = workoutSetRepository.findRepRangeDistribution(userId, startTs, endTs);
+
+        long strength = 0L;
+        long hypertrophy = 0L;
+        long endurance = 0L;
+
+        if (!results.isEmpty()) {
+            RepRangeProjection p = results.get(0);
+            strength    = p.getStrengthCount()    != null ? p.getStrengthCount()    : 0L;
+            hypertrophy = p.getHypertrophyCount() != null ? p.getHypertrophyCount() : 0L;
+            endurance   = p.getEnduranceCount()   != null ? p.getEnduranceCount()   : 0L;
+        }
+
+        long total = strength + hypertrophy + endurance;
+
+        List<RepRangeDistributionResponse.RepRangeBucket> buckets = new ArrayList<>();
+        buckets.add(RepRangeDistributionResponse.RepRangeBucket.builder()
+                .category("Strength")
+                .range("1-5 reps")
+                .count(strength)
+                .percentage(safePercentage(strength, total))
+                .build());
+        buckets.add(RepRangeDistributionResponse.RepRangeBucket.builder()
+                .category("Hypertrophy")
+                .range("6-12 reps")
+                .count(hypertrophy)
+                .percentage(safePercentage(hypertrophy, total))
+                .build());
+        buckets.add(RepRangeDistributionResponse.RepRangeBucket.builder()
+                .category("Endurance")
+                .range("13+ reps")
+                .count(endurance)
+                .percentage(safePercentage(endurance, total))
+                .build());
+
+        return RepRangeDistributionResponse.builder()
+                .totalSets(total)
+                .buckets(buckets)
+                .build();
+    }
+
+    // ──────────────────────────────────────────────────────────────
+    // Endpoint: Muscle Group Frequency
+    // ──────────────────────────────────────────────────────────────
+
+    @Override
+    public MuscleFrequencyResponse getMuscleFrequency(String email, LocalDate start, LocalDate end) {
+        User user = resolveUser(email);
+        String userId = user.getId();
+
+        Timestamp startTs = toStartOfDayTimestamp(start);
+        Timestamp endTs = toEndOfDayTimestamp(end);
+
+        List<Object[]> rawRows = workoutSetRepository.findMuscleFrequency(userId, startTs, endTs);
+
+        // First pass: compute total hits for percentage calculation
+        long totalHits = rawRows.stream()
+                .mapToLong(row -> row[1] != null ? ((Number) row[1]).longValue() : 0L)
+                .sum();
+
+        List<MuscleFrequencyResponse.MuscleHit> muscles = rawRows.stream()
+                .map(row -> {
+                    String muscleGroup = row[0] != null ? row[0].toString() : "UNKNOWN";
+                    long count = row[1] != null ? ((Number) row[1]).longValue() : 0L;
+                    return MuscleFrequencyResponse.MuscleHit.builder()
+                            .muscleGroup(muscleGroup)
+                            .count(count)
+                            .percentage(safePercentage(count, totalHits))
+                            .build();
+                })
+                .collect(Collectors.toList());
+
+        return MuscleFrequencyResponse.builder()
+                .totalHits(totalHits)
+                .muscles(muscles)
+                .build();
+    }
+
+    // ──────────────────────────────────────────────────────────────
     // Private Helpers
+    // ──────────────────────────────────────────────────────────────
 
     /**
      * Resolves email (from JWT principal) to User entity.
@@ -148,4 +286,55 @@ public class StatisticsServiceImpl implements StatisticsService {
         }
         throw new IllegalStateException("Unexpected numeric type: " + numObj.getClass().getName());
     }
+
+    /**
+     * Safely converts various numeric types to long. Handles BigDecimal, Long, Integer, etc.
+     */
+    private long convertToLong(Object numObj) {
+        if (numObj == null) {
+            return 0L;
+        } else if (numObj instanceof Number) {
+            return ((Number) numObj).longValue();
+        }
+        throw new IllegalStateException("Unexpected numeric type: " + numObj.getClass().getName());
+    }
+
+    /**
+     * Converts a nullable LocalDate to a Timestamp at start of day (00:00:00).
+     * Returns null when input is null so the repository query's IS NULL check applies.
+     */
+    private Timestamp toStartOfDayTimestamp(LocalDate date) {
+        if (date == null) return null;
+        return Timestamp.valueOf(date.atStartOfDay());
+    }
+
+    /**
+     * Converts a nullable LocalDate to a Timestamp at end of day (23:59:59.999).
+     * Returns null when input is null so the repository query's IS NULL check applies.
+     */
+    private Timestamp toEndOfDayTimestamp(LocalDate date) {
+        if (date == null) return null;
+        return Timestamp.valueOf(date.atTime(LocalTime.MAX));
+    }
+
+    /**
+     * Determines whether to group volume data WEEKLY or MONTHLY based on the
+     * requested date range. Defaults to WEEKLY when no range is specified.
+     */
+    private String determineGrouping(LocalDate start, LocalDate end) {
+        if (start != null && end != null) {
+            long days = ChronoUnit.DAYS.between(start, end);
+            return days > MONTHLY_GROUPING_THRESHOLD_DAYS ? "MONTHLY" : "WEEKLY";
+        }
+        return "WEEKLY";
+    }
+
+    /**
+     * Calculates percentage with null/zero safety. Rounds to 1 decimal place.
+     */
+    private Double safePercentage(long count, long total) {
+        if (total == 0) return 0.0;
+        return Math.round((double) count / total * 1000.0) / 10.0;
+    }
 }
+
