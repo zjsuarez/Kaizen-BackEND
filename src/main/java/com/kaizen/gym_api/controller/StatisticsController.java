@@ -1,9 +1,13 @@
 package com.kaizen.gym_api.controller;
 
 import com.kaizen.gym_api.dto.response.BodyWeightTrendResponse;
+import com.kaizen.gym_api.dto.response.MuscleFrequencyResponse;
 import com.kaizen.gym_api.dto.response.OneRepMaxTrendResponse;
+import com.kaizen.gym_api.dto.response.RepRangeDistributionResponse;
+import com.kaizen.gym_api.dto.response.VolumeTrendResponse;
 import com.kaizen.gym_api.service.StatisticsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import java.time.LocalDate;
 
 /**
  * REST controller for the Statistics / Analytics Lab module.
@@ -55,6 +60,60 @@ public class StatisticsController {
 
         String email = getAuthenticatedEmail();
         BodyWeightTrendResponse response = statisticsService.getBodyWeightTrend(email);
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * GET /api/statistics/volume?start={date}&end={date}
+     *
+     * Returns the total volume (weight × reps) lifted by the user,
+     * grouped by week (default) or month (if range > 90 days).
+     * Date params are optional: omitting them returns all-time data.
+     */
+    @GetMapping("/volume")
+    public ResponseEntity<VolumeTrendResponse> getVolumeTrend(
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
+
+        String email = getAuthenticatedEmail();
+        VolumeTrendResponse response = statisticsService.getVolumeTrend(email, start, end);
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * GET /api/statistics/rep-ranges?start={date}&end={date}
+     *
+     * Analyzes the user's workout sets within a timeframe and groups them
+     * into standard fitness rep ranges:
+     * - Strength: 1-5 reps
+     * - Hypertrophy: 6-12 reps
+     * - Endurance: 13+ reps
+     * Date params are optional: omitting them returns all-time data.
+     */
+    @GetMapping("/rep-ranges")
+    public ResponseEntity<RepRangeDistributionResponse> getRepRangeDistribution(
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
+
+        String email = getAuthenticatedEmail();
+        RepRangeDistributionResponse response = statisticsService.getRepRangeDistribution(email, start, end);
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * GET /api/statistics/muscle-frequency?start={date}&end={date}
+     *
+     * Counts how many exercises targeting specific muscle groups
+     * (e.g., CHEST, BACK, LEGS) the user has performed in a timeframe.
+     * Date params are optional: omitting them returns all-time data.
+     */
+    @GetMapping("/muscle-frequency")
+    public ResponseEntity<MuscleFrequencyResponse> getMuscleFrequency(
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
+
+        String email = getAuthenticatedEmail();
+        MuscleFrequencyResponse response = statisticsService.getMuscleFrequency(email, start, end);
         return ResponseEntity.ok(response);
     }
 
