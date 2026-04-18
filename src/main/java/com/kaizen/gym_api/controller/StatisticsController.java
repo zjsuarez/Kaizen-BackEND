@@ -5,6 +5,9 @@ import com.kaizen.gym_api.dto.response.MuscleFrequencyResponse;
 import com.kaizen.gym_api.dto.response.OneRepMaxTrendResponse;
 import com.kaizen.gym_api.dto.response.RepRangeDistributionResponse;
 import com.kaizen.gym_api.dto.response.VolumeTrendResponse;
+import com.kaizen.gym_api.dto.response.FatigueCorrelationResponse;
+import com.kaizen.gym_api.dto.response.SessionEfficiencyResponse;
+import com.kaizen.gym_api.dto.response.RestTimeDistributionResponse;
 import com.kaizen.gym_api.service.StatisticsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -114,6 +117,51 @@ public class StatisticsController {
 
         String email = getAuthenticatedEmail();
         MuscleFrequencyResponse response = statisticsService.getMuscleFrequency(email, start, end);
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * GET /api/statistics/fatigue?start={date}&end={date}
+     *
+     * Returns the trend of the user's Average RPE alongside their Total Volume over time.
+     */
+    @GetMapping("/fatigue")
+    public ResponseEntity<FatigueCorrelationResponse> getFatigueCorrelation(
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
+
+        String email = getAuthenticatedEmail();
+        FatigueCorrelationResponse response = statisticsService.getFatigueCorrelation(email, start, end);
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * GET /api/statistics/efficiency?start={date}&end={date}
+     *
+     * Returns data points for a Scatter Plot pairing Workout Duration vs Total Volume.
+     */
+    @GetMapping("/efficiency")
+    public ResponseEntity<SessionEfficiencyResponse> getSessionEfficiency(
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
+
+        String email = getAuthenticatedEmail();
+        SessionEfficiencyResponse response = statisticsService.getSessionEfficiency(email, start, end);
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * GET /api/statistics/density?start={date}&end={date}
+     *
+     * Returns a histogram-style distribution of the user's rest times / training density.
+     */
+    @GetMapping("/density")
+    public ResponseEntity<RestTimeDistributionResponse> getRestTimeDistribution(
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
+
+        String email = getAuthenticatedEmail();
+        RestTimeDistributionResponse response = statisticsService.getRestTimeDistribution(email, start, end);
         return ResponseEntity.ok(response);
     }
 

@@ -171,5 +171,60 @@ public interface WorkoutSetRepository extends JpaRepository<WorkoutSet, String> 
        List<Object[]> findMuscleFrequency(@Param("userId") String userId,
               @Param("startDate") Timestamp startDate,
               @Param("endDate") Timestamp endDate);
-}
 
+       // ──────────────────────────────────────────────────────────────
+       // Statistics: Fatigue Correlation (Volume vs RPE)
+       // ──────────────────────────────────────────────────────────────
+       @Query(value =
+              "SELECT CAST(w.endTime AS DATE) AS trendDate, " +
+              "ROUND(SUM(ws.weightKg * ws.reps), 2) AS totalVolume, " +
+              "ROUND(AVG(ws.rpe), 2) AS averageRpe " +
+              "FROM WorkoutSets ws " +
+              "JOIN Workouts w ON ws.workoutId_FK = w.id_PK " +
+              "WHERE w.userId_FK = :userId " +
+              "AND w.endTime IS NOT NULL " +
+              "AND ws.weightKg IS NOT NULL AND ws.reps IS NOT NULL AND ws.reps > 0 AND ws.rpe IS NOT NULL " +
+              "AND (:startDate IS NULL OR w.endTime >= :startDate) " +
+              "AND (:endDate IS NULL OR w.endTime <= :endDate) " +
+              "GROUP BY CAST(w.endTime AS DATE) " +
+              "ORDER BY trendDate ASC", nativeQuery = true)
+       List<Object[]> findFatigueCorrelation(@Param("userId") String userId,
+              @Param("startDate") Timestamp startDate,
+              @Param("endDate") Timestamp endDate);
+
+       // ──────────────────────────────────────────────────────────────
+       // Statistics: Session Efficiency (Time vs Volume)
+       // ──────────────────────────────────────────────────────────────
+       @Query(value =
+              "SELECT TIMESTAMPDIFF(MINUTE, w.startTime, w.endTime) AS durationMinutes, " +
+              "ROUND(SUM(ws.weightKg * ws.reps), 2) AS totalVolume " +
+              "FROM Workouts w " +
+              "JOIN WorkoutSets ws ON ws.workoutId_FK = w.id_PK " +
+              "WHERE w.userId_FK = :userId " +
+              "AND w.startTime IS NOT NULL AND w.endTime IS NOT NULL " +
+              "AND ws.weightKg IS NOT NULL AND ws.reps IS NOT NULL AND ws.reps > 0 " +
+              "AND (:startDate IS NULL OR w.endTime >= :startDate) " +
+              "AND (:endDate IS NULL OR w.endTime <= :endDate) " +
+              "GROUP BY w.id_PK " +
+              "ORDER BY w.endTime ASC", nativeQuery = true)
+       List<Object[]> findSessionEfficiency(@Param("userId") String userId,
+              @Param("startDate") Timestamp startDate,
+              @Param("endDate") Timestamp endDate);
+
+       // ──────────────────────────────────────────────────────────────
+       // Statistics: Rest Time / Density Distribution
+       // ──────────────────────────────────────────────────────────────
+       @Query(value =
+              "SELECT TIMESTAMPDIFF(SECOND, w.startTime, w.endTime) / COUNT(ws.id_PK) AS avgSecondsPerSet " +
+              "FROM Workouts w " +
+              "JOIN WorkoutSets ws ON ws.workoutId_FK = w.id_PK " +
+              "WHERE w.userId_FK = :userId " +
+              "AND w.startTime IS NOT NULL AND w.endTime IS NOT NULL " +
+              "AND (:startDate IS NULL OR w.endTime >= :startDate) " +
+              "AND (:endDate IS NULL OR w.endTime <= :endDate) " +
+              "GROUP BY w.id_PK " +
+              "HAVING COUNT(ws.id_PK) > 0", nativeQuery = true)
+       List<Object> findAverageSecondsPerSet(@Param("userId") String userId,
+              @Param("startDate") Timestamp startDate,
+              @Param("endDate") Timestamp endDate);
+}

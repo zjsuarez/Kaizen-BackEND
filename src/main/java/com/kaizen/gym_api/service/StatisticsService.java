@@ -6,6 +6,10 @@ import com.kaizen.gym_api.dto.response.OneRepMaxTrendResponse;
 import com.kaizen.gym_api.dto.response.RepRangeDistributionResponse;
 import com.kaizen.gym_api.dto.response.VolumeTrendResponse;
 
+import com.kaizen.gym_api.dto.response.SessionEfficiencyResponse;
+import com.kaizen.gym_api.dto.response.FatigueCorrelationResponse;
+import com.kaizen.gym_api.dto.response.RestTimeDistributionResponse;
+
 import java.time.LocalDate;
 
 /**
@@ -64,4 +68,19 @@ public interface StatisticsService {
      * @return map of muscle groups to their hit counts and percentages
      */
     MuscleFrequencyResponse getMuscleFrequency(String email, LocalDate start, LocalDate end);
+
+    /**
+     * Correlates the user's Total Volume with their Average RPE to monitor fatigue over time.
+     */
+    FatigueCorrelationResponse getFatigueCorrelation(String email, LocalDate start, LocalDate end);
+
+    /**
+     * Maps Workout Duration vs Total Volume for efficiency scatter plots.
+     */
+    SessionEfficiencyResponse getSessionEfficiency(String email, LocalDate start, LocalDate end);
+
+    /**
+     * Approximates rest time and groups it into density buckets.
+     */
+    RestTimeDistributionResponse getRestTimeDistribution(String email, LocalDate start, LocalDate end);
 }

@@ -6,6 +6,9 @@ import com.kaizen.gym_api.dto.response.OneRepMaxTrendResponse;
 import com.kaizen.gym_api.dto.response.RepRangeDistributionResponse;
 import com.kaizen.gym_api.dto.response.TrendPointDTO;
 import com.kaizen.gym_api.dto.response.VolumeTrendResponse;
+import com.kaizen.gym_api.dto.response.FatigueCorrelationResponse;
+import com.kaizen.gym_api.dto.response.SessionEfficiencyResponse;
+import com.kaizen.gym_api.dto.response.RestTimeDistributionResponse;
 import com.kaizen.gym_api.model.Exercise;
 import com.kaizen.gym_api.model.User;
 import com.kaizen.gym_api.repository.BodyMeasurementRepository;
@@ -217,6 +220,116 @@ public class StatisticsServiceImpl implements StatisticsService {
         return MuscleFrequencyResponse.builder()
                 .totalHits(totalHits)
                 .muscles(muscles)
+                .build();
+    }
+
+    // ──────────────────────────────────────────────────────────────
+    // Endpoint: Fatigue Correlation (Volume vs RPE)
+    // ──────────────────────────────────────────────────────────────
+
+    @Override
+    public FatigueCorrelationResponse getFatigueCorrelation(String email, LocalDate start, LocalDate end) {
+        User user = resolveUser(email);
+        Timestamp startTs = toStartOfDayTimestamp(start);
+        Timestamp endTs = toEndOfDayTimestamp(end);
+
+        List<Object[]> rawRows = workoutSetRepository.findFatigueCorrelation(user.getId(), startTs, endTs);
+        
+        List<FatigueCorrelationResponse.FatiguePoint> points = rawRows.stream()
+                .map(row -> FatigueCorrelationResponse.FatiguePoint.builder()
+                        .date(convertToLocalDate(row[0]))
+                        .totalVolume(convertToDouble(row[1]))
+                        .averageRpe(convertToDouble(row[2]))
+                        .build())
+                .collect(Collectors.toList());
+
+        return FatigueCorrelationResponse.builder()
+                .dataPoints(points)
+                .build();
+    }
+
+    // ──────────────────────────────────────────────────────────────
+    // Endpoint: Session Efficiency (Time vs Volume)
+    // ──────────────────────────────────────────────────────────────
+
+    @Override
+    public SessionEfficiencyResponse getSessionEfficiency(String email, LocalDate start, LocalDate end) {
+        User user = resolveUser(email);
+        Timestamp startTs = toStartOfDayTimestamp(start);
+        Timestamp endTs = toEndOfDayTimestamp(end);
+
+        List<Object[]> rawRows = workoutSetRepository.findSessionEfficiency(user.getId(), startTs, endTs);
+        
+        List<SessionEfficiencyResponse.ScatterPoint> points = rawRows.stream()
+                .map(row -> SessionEfficiencyResponse.ScatterPoint.builder()
+                        .durationMinutes(convertToLong(row[0]))
+                        .totalVolume(convertToDouble(row[1]))
+                        .build())
+                .collect(Collectors.toList());
+
+        return SessionEfficiencyResponse.builder()
+                .totalSessionsAnalyzed((long) points.size())
+                .dataPoints(points)
+                .build();
+    }
+
+    // ──────────────────────────────────────────────────────────────
+    // Endpoint: Rest Time / Density Distribution
+    // ──────────────────────────────────────────────────────────────
+
+    @Override
+    public RestTimeDistributionResponse getRestTimeDistribution(String email, LocalDate start, LocalDate end) {
+        User user = resolveUser(email);
+        Timestamp startTs = toStartOfDayTimestamp(start);
+        Timestamp endTs = toEndOfDayTimestamp(end);
+
+        List<Object> rawRows = workoutSetRepository.findAverageSecondsPerSet(user.getId(), startTs, endTs);
+
+        long lessThan1Min = 0;
+        long oneToTwoMins = 0;
+        long twoToThreeMins = 0;
+        long threePlusMins = 0;
+
+        for (Object row : rawRows) {
+            double seconds = convertToDouble(row);
+            if (seconds < 60) {
+                lessThan1Min++;
+            } else if (seconds < 120) {
+                oneToTwoMins++;
+            } else if (seconds < 180) {
+                twoToThreeMins++;
+            } else {
+                threePlusMins++;
+            }
+        }
+
+        long total = lessThan1Min + oneToTwoMins + twoToThreeMins + threePlusMins;
+
+        List<RestTimeDistributionResponse.RestTimeBucket> buckets = new ArrayList<>();
+        buckets.add(RestTimeDistributionResponse.RestTimeBucket.builder()
+                .category("< 1 min")
+                .count(lessThan1Min)
+                .percentage(safePercentage(lessThan1Min, total))
+                .build());
+        buckets.add(RestTimeDistributionResponse.RestTimeBucket.builder()
+                .category("1-2 mins")
+                .count(oneToTwoMins)
+                .percentage(safePercentage(oneToTwoMins, total))
+                .build());
+        buckets.add(RestTimeDistributionResponse.RestTimeBucket.builder()
+                .category("2-3 mins")
+                .count(twoToThreeMins)
+                .percentage(safePercentage(twoToThreeMins, total))
+                .build());
+        buckets.add(RestTimeDistributionResponse.RestTimeBucket.builder()
+                .category("3+ mins")
+                .count(threePlusMins)
+                .percentage(safePercentage(threePlusMins, total))
+                .build());
+
+        return RestTimeDistributionResponse.builder()
+                .totalWorkoutsAnalyzed(total)
+                .buckets(buckets)
                 .build();
     }
 
