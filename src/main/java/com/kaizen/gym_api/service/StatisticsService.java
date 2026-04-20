@@ -9,6 +9,9 @@ import com.kaizen.gym_api.dto.response.VolumeTrendResponse;
 import com.kaizen.gym_api.dto.response.SessionEfficiencyResponse;
 import com.kaizen.gym_api.dto.response.FatigueCorrelationResponse;
 import com.kaizen.gym_api.dto.response.RestTimeDistributionResponse;
+import com.kaizen.gym_api.dto.response.TrainingActivityResponse;
+import com.kaizen.gym_api.dto.response.PrFrequencyResponse;
+import com.kaizen.gym_api.dto.response.PrPeakTimeResponse;
 
 import java.time.LocalDate;
 
@@ -83,4 +86,19 @@ public interface StatisticsService {
      * Approximates rest time and groups it into density buckets.
      */
     RestTimeDistributionResponse getRestTimeDistribution(String email, LocalDate start, LocalDate end);
+
+    /**
+     * Returns a list of dates representing every day the user has completed a workout.
+     */
+    TrainingActivityResponse getTrainingActivity(String email, LocalDate start, LocalDate end);
+
+    /**
+     * Returns a list of dates specifically showing when the user hit Personal Records.
+     */
+    PrFrequencyResponse getPrFrequency(String email, LocalDate start, LocalDate end);
+
+    /**
+     * Returns exact time of day (hours and minutes) when the user hits PRs.
+     */
+    PrPeakTimeResponse getPrPeakTime(String email, LocalDate start, LocalDate end);
 }

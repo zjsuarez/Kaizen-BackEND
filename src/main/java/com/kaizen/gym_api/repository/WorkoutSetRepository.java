@@ -227,4 +227,38 @@ public interface WorkoutSetRepository extends JpaRepository<WorkoutSet, String> 
        List<Object> findAverageSecondsPerSet(@Param("userId") String userId,
               @Param("startDate") Timestamp startDate,
               @Param("endDate") Timestamp endDate);
+
+       // ──────────────────────────────────────────────────────────────
+       // Statistics: PR Frequency Heatmap
+       // ──────────────────────────────────────────────────────────────
+       @Query(value =
+              "SELECT CAST(w.endTime AS DATE) AS prDate, COUNT(ws.id_PK) AS prCount " +
+              "FROM WorkoutSets ws " +
+              "JOIN Workouts w ON ws.workoutId_FK = w.id_PK " +
+              "WHERE w.userId_FK = :userId AND w.endTime IS NOT NULL " +
+              "AND ws.isPR = true " +
+              "AND (:startDate IS NULL OR w.endTime >= :startDate) " +
+              "AND (:endDate IS NULL OR w.endTime <= :endDate) " +
+              "GROUP BY CAST(w.endTime AS DATE) " +
+              "ORDER BY prDate ASC", nativeQuery = true)
+       List<Object[]> findPrFrequencyHeatmap(@Param("userId") String userId,
+              @Param("startDate") Timestamp startDate,
+              @Param("endDate") Timestamp endDate);
+
+       // ──────────────────────────────────────────────────────────────
+       // Statistics: PR Peak Time Scatter Plot
+       // ──────────────────────────────────────────────────────────────
+       @Query(value =
+              "SELECT CAST(w.endTime AS DATE) AS prDate, " +
+              "w.endTime AS exactTime " +
+              "FROM WorkoutSets ws " +
+              "JOIN Workouts w ON ws.workoutId_FK = w.id_PK " +
+              "WHERE w.userId_FK = :userId AND w.endTime IS NOT NULL " +
+              "AND ws.isPR = true " +
+              "AND (:startDate IS NULL OR w.endTime >= :startDate) " +
+              "AND (:endDate IS NULL OR w.endTime <= :endDate) " +
+              "ORDER BY exactTime ASC", nativeQuery = true)
+       List<Object[]> findPrPeakTime(@Param("userId") String userId,
+              @Param("startDate") Timestamp startDate,
+              @Param("endDate") Timestamp endDate);
 }
