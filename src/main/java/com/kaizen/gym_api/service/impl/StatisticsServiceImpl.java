@@ -9,11 +9,15 @@ import com.kaizen.gym_api.dto.response.VolumeTrendResponse;
 import com.kaizen.gym_api.dto.response.FatigueCorrelationResponse;
 import com.kaizen.gym_api.dto.response.SessionEfficiencyResponse;
 import com.kaizen.gym_api.dto.response.RestTimeDistributionResponse;
+import com.kaizen.gym_api.dto.response.TrainingActivityResponse;
+import com.kaizen.gym_api.dto.response.PrFrequencyResponse;
+import com.kaizen.gym_api.dto.response.PrPeakTimeResponse;
 import com.kaizen.gym_api.model.Exercise;
 import com.kaizen.gym_api.model.User;
 import com.kaizen.gym_api.repository.BodyMeasurementRepository;
 import com.kaizen.gym_api.repository.ExerciseRepository;
 import com.kaizen.gym_api.repository.UserRepository;
+import com.kaizen.gym_api.repository.WorkoutRepository;
 import com.kaizen.gym_api.repository.WorkoutSetRepository;
 import com.kaizen.gym_api.repository.WorkoutSetRepository.RepRangeProjection;
 import com.kaizen.gym_api.service.StatisticsService;
@@ -36,6 +40,7 @@ import java.util.stream.Collectors;
 public class StatisticsServiceImpl implements StatisticsService {
 
     private final UserRepository userRepository;
+    private final WorkoutRepository workoutRepository;
     private final WorkoutSetRepository workoutSetRepository;
     private final BodyMeasurementRepository bodyMeasurementRepository;
     private final ExerciseRepository exerciseRepository;
@@ -330,6 +335,115 @@ public class StatisticsServiceImpl implements StatisticsService {
         return RestTimeDistributionResponse.builder()
                 .totalWorkoutsAnalyzed(total)
                 .buckets(buckets)
+                .build();
+    }
+
+    // ──────────────────────────────────────────────────────────────
+    // Endpoint: Training Activity (Heatmap)
+    // ──────────────────────────────────────────────────────────────
+
+    @Override
+    public TrainingActivityResponse getTrainingActivity(String email, LocalDate start, LocalDate end) {
+        User user = resolveUser(email);
+        Timestamp startTs = toStartOfDayTimestamp(start);
+        Timestamp endTs = toEndOfDayTimestamp(end);
+
+        List<Object[]> rawRows = workoutRepository.findTrainingActivityHeatmap(user.getId(), startTs, endTs);
+        List<TrainingActivityResponse.ActivityPoint> points = rawRows.stream()
+                .map(row -> TrainingActivityResponse.ActivityPoint.builder()
+                        .date(convertToLocalDate(row[0]))
+                        .durationMinutes(convertToLong(row[1]))
+                        .build())
+                .collect(Collectors.toList());
+
+        return TrainingActivityResponse.builder()
+                .totalActiveDays((long) points.size())
+                .dataPoints(points)
+                .build();
+    }
+
+    // ──────────────────────────────────────────────────────────────
+    // Endpoint: PR Frequency (Heatmap)
+    // ──────────────────────────────────────────────────────────────
+
+    @Override
+    public PrFrequencyResponse getPrFrequency(String email, LocalDate start, LocalDate end) {
+        User user = resolveUser(email);
+        Timestamp startTs = toStartOfDayTimestamp(start);
+        Timestamp endTs = toEndOfDayTimestamp(end);
+
+        List<Object[]> rawRows = workoutSetRepository.findPrFrequencyHeatmap(user.getId(), startTs, endTs);
+        List<PrFrequencyResponse.PrFrequencyPoint> points = rawRows.stream()
+                .map(row -> PrFrequencyResponse.PrFrequencyPoint.builder()
+                        .date(convertToLocalDate(row[0]))
+                        .count(convertToLong(row[1]))
+                        .build())
+                .collect(Collectors.toList());
+
+        return PrFrequencyResponse.builder()
+                .totalPrDays((long) points.size())
+                .dataPoints(points)
+                .build();
+    }
+
+    // ──────────────────────────────────────────────────────────────
+    // Endpoint: PR Peak Time (Scatter Chart)
+    // ──────────────────────────────────────────────────────────────
+
+    @Override
+    public PrPeakTimeResponse getPrPeakTime(String email, LocalDate start, LocalDate end) {
+        User user = resolveUser(email);
+        Timestamp startTs = toStartOfDayTimestamp(start);
+        Timestamp endTs = toEndOfDayTimestamp(end);
+
+        List<Object[]> rawRows = workoutSetRepository.findPrPeakTime(user.getId(), startTs, endTs);
+        List<PrPeakTimeResponse.PrTimePoint> points = rawRows.stream()
+                .map(row -> {
+                    LocalDate date = convertToLocalDate(row[0]);
+                    LocalTime exactTime = null;
+                    Object timeObj = row[1];
+                    
+                    if (timeObj != null) {
+                        if (timeObj instanceof java.time.LocalDateTime) {
+                            exactTime = ((java.time.LocalDateTime) timeObj).toLocalTime();
+                        } else if (timeObj instanceof java.time.LocalTime) {
+                            exactTime = (java.time.LocalTime) timeObj;
+                        } else if (timeObj instanceof Timestamp) {
+                            exactTime = ((Timestamp) timeObj).toLocalDateTime().toLocalTime();
+                        } else if (timeObj instanceof java.sql.Time) {
+                            exactTime = ((java.sql.Time) timeObj).toLocalTime();
+                        } else if (timeObj instanceof java.util.Date) {
+                            exactTime = java.time.Instant.ofEpochMilli(((java.util.Date) timeObj).getTime())
+                                    .atZone(java.time.ZoneId.systemDefault())
+                                    .toLocalTime();
+                        } else {
+                            String timeStr = timeObj.toString().trim();
+                            try {
+                                if (timeStr.contains("T")) {
+                                    exactTime = java.time.LocalDateTime.parse(timeStr).toLocalTime();
+                                } else if (timeStr.contains(" ")) {
+                                    exactTime = LocalTime.parse(timeStr.split(" ")[1].split("\\.")[0]);
+                                } else {
+                                    exactTime = LocalTime.parse(timeStr.split("\\.")[0]);
+                                }
+                            } catch (Exception e) {
+                                exactTime = LocalTime.MIDNIGHT; // Safe fallback
+                            }
+                        }
+                    }
+                    
+                    return PrPeakTimeResponse.PrTimePoint.builder()
+                            .date(date)
+                            .timeOfDay(exactTime)
+                            .hourOfDay(exactTime != null ? exactTime.getHour() : null)
+                            .minuteOfHour(exactTime != null ? exactTime.getMinute() : null)
+                            .build();
+                })
+                .collect(Collectors.toList());
+
+        return PrPeakTimeResponse.builder()
+                .totalPrsAnalyzed((long) points.size())
+                .dataPoints(points)
                 .build();
     }
 

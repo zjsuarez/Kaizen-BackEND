@@ -8,6 +8,9 @@ import com.kaizen.gym_api.dto.response.VolumeTrendResponse;
 import com.kaizen.gym_api.dto.response.FatigueCorrelationResponse;
 import com.kaizen.gym_api.dto.response.SessionEfficiencyResponse;
 import com.kaizen.gym_api.dto.response.RestTimeDistributionResponse;
+import com.kaizen.gym_api.dto.response.TrainingActivityResponse;
+import com.kaizen.gym_api.dto.response.PrFrequencyResponse;
+import com.kaizen.gym_api.dto.response.PrPeakTimeResponse;
 import com.kaizen.gym_api.service.StatisticsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -162,6 +165,54 @@ public class StatisticsController {
 
         String email = getAuthenticatedEmail();
         RestTimeDistributionResponse response = statisticsService.getRestTimeDistribution(email, start, end);
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * GET /api/statistics/activity-heatmap?start={date}&end={date}
+     *
+     * Returns a list of dates representing every day the user has completed a workout,
+     * along with the total duration in minutes for each day.
+     */
+    @GetMapping("/activity-heatmap")
+    public ResponseEntity<TrainingActivityResponse> getTrainingActivityHeatmap(
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
+
+        String email = getAuthenticatedEmail();
+        TrainingActivityResponse response = statisticsService.getTrainingActivity(email, start, end);
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * GET /api/statistics/pr-heatmap?start={date}&end={date}
+     *
+     * Returns a list of dates showing when the user hit Personal Records,
+     * along with the count of PRs for each day.
+     */
+    @GetMapping("/pr-heatmap")
+    public ResponseEntity<PrFrequencyResponse> getPrFrequencyHeatmap(
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
+
+        String email = getAuthenticatedEmail();
+        PrFrequencyResponse response = statisticsService.getPrFrequency(email, start, end);
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * GET /api/statistics/pr-peak-time?start={date}&end={date}
+     *
+     * Returns the exact time of day (hours and minutes) when the user hits PRs,
+     * formatted as data points for a Scatter Chart. Data answers the question: "Am I stronger in the morning or evening?"
+     */
+    @GetMapping("/pr-peak-time")
+    public ResponseEntity<PrPeakTimeResponse> getPrPeakTime(
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
+
+        String email = getAuthenticatedEmail();
+        PrPeakTimeResponse response = statisticsService.getPrPeakTime(email, start, end);
         return ResponseEntity.ok(response);
     }
 
