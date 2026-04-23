@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.sql.Date;
@@ -27,6 +29,7 @@ public class TrainingPlan {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId_FK", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @Column(name = "name", nullable = false)

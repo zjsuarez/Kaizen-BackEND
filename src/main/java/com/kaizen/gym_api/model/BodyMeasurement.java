@@ -6,15 +6,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "BodyMeasurements", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"userId_FK", "recordedAt"})
-})
+@Table(name = "BodyMeasurements")
 @Data
 @Builder
 @NoArgsConstructor
@@ -28,10 +28,17 @@ public class BodyMeasurement {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId_FK", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    @Column(name = "weightKg", nullable = false)
+    @Column(name = "weightKg")
     private Double weightKg;
+
+    @Column(name = "bodyFatPercentage")
+    private Double bodyFatPercentage;
+
+    @Column(name = "progressPhotoUrl")
+    private String progressPhotoUrl;
 
     @Column(name = "recordedAt", nullable = false)
     private LocalDate recordedAt;

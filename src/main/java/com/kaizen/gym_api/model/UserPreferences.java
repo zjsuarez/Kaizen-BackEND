@@ -16,6 +16,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,10 +37,12 @@ public class UserPreferences {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId_FK", nullable = false, unique = true, columnDefinition = "CHAR(36)")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @ElementCollection
     @CollectionTable(name = "UserPreferenceDashboardWidgets", joinColumns = @JoinColumn(name = "preferencesId_FK"))
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @OrderColumn(name = "widgetOrder")
     @Column(name = "widgetKey", nullable = false)
     @Builder.Default
