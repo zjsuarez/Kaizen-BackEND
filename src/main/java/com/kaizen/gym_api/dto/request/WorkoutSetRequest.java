@@ -25,5 +25,7 @@ public class WorkoutSetRequest {
 
     private Integer rpe;
 
+    private String value;
+
     private WorkoutSetType type;
 }
