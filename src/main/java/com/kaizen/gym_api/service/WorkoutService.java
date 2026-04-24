@@ -95,6 +95,7 @@ public class WorkoutService {
                         .weightKg(req.getWeightKg())
                         .reps(req.getReps())
                         .rpe(req.getRpe())
+                        .value(req.getValue())
                         .type(req.getType())
                         .isPR(isPR)
                         .build();
@@ -139,6 +140,7 @@ public class WorkoutService {
                 .weightKg(s.getWeightKg())
                 .reps(s.getReps())
                 .rpe(s.getRpe())
+                .value(s.getValue())
                 .type(s.getType())
                 .isPR(s.getIsPR())
                 .build()

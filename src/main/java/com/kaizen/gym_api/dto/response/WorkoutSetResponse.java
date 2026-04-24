@@ -22,6 +22,7 @@ public class WorkoutSetResponse {
     private BigDecimal weightKg;
     private Integer reps;
     private Integer rpe;
+    private String value;
     private WorkoutSetType type;
     private Boolean isPR;
 }
