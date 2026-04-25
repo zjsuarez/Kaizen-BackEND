@@ -36,4 +36,16 @@ public class AuthController {
             return ResponseEntity.status(401).body("Invalid credentials: " + e.getMessage());
         }
     }
+
+    @PostMapping("/google")
+    public ResponseEntity<?> googleLogin(@RequestBody com.kaizen.gym_api.dto.request.GoogleLoginRequest request) {
+        try {
+            AuthResponse response = authService.googleLogin(request);
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(401).body("Google authentication failed: " + e.getMessage());
+        }
+    }
 }
