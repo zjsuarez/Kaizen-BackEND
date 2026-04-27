@@ -1,6 +1,7 @@
 package com.kaizen.gym_api.service;
 
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -71,18 +72,29 @@ public class AuthService {
     // ---------------
 
     public AuthResponse login(LoginRequest request) {
-        // Authenticate user credentials
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
-                )
-        );
-
-        // Fetch user because we need it to generate token and get user ID
+        // Fetch user first to apply auth-provider specific login behavior.
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseGet(() -> userRepository.findByUsername(request.getEmail())
-                        .orElseThrow(() -> new IllegalArgumentException("Invalid email or password")));
+                        .orElseThrow(() -> new BadCredentialsException("INVALID_CREDENTIALS")));
+
+        // Accounts without local credentials must use OAuth login.
+        if (user.getPasswordHash() == null) {
+            throw new BadCredentialsException("OAUTH_ONLY_ACCOUNT");
+        }
+
+        // For LOCAL/BOTH accounts, invalid credentials must map to standard bad-credentials flow.
+        try {
+            authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                    user.getEmail(),
+                    request.getPassword()
+                )
+            );
+        } catch (BadCredentialsException ex) {
+            throw new BadCredentialsException("INVALID_CREDENTIALS");
+        } catch (Exception ex) {
+            throw new BadCredentialsException("INVALID_CREDENTIALS");
+        }
 
         // Generate token
         String jwtToken = jwtService.generateToken(

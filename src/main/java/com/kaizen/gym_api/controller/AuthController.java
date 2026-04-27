@@ -33,7 +33,7 @@ public class AuthController {
             AuthResponse response = authService.login(request);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            return ResponseEntity.status(401).body("Invalid credentials: " + e.getMessage());
+            return ResponseEntity.status(401).body(e.getMessage());
         }
     }
 
