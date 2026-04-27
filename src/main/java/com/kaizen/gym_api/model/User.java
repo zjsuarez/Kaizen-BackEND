@@ -1,5 +1,6 @@
 package com.kaizen.gym_api.model;
 
+import com.kaizen.gym_api.model.enums.AuthProvider;
 import com.kaizen.gym_api.model.enums.EquipmentType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -34,8 +35,13 @@ public class User {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "passwordHash", nullable = false)
+    @Column(name = "passwordHash")
     private String passwordHash;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "authProvider", nullable = false)
+    @Builder.Default
+    private AuthProvider authProvider = AuthProvider.LOCAL;
 
     @Column(name = "profilePic")
     private String profilePic;

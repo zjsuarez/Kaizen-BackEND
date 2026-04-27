@@ -3,6 +3,7 @@ package com.kaizen.gym_api.service;
 import com.kaizen.gym_api.dto.request.UpdateUserRequest;
 import com.kaizen.gym_api.dto.response.UserResponse;
 import com.kaizen.gym_api.model.User;
+import com.kaizen.gym_api.model.enums.AuthProvider;
 import com.kaizen.gym_api.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,17 +20,7 @@ public class UserService {
         User user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        return UserResponse.builder()
-                .id(user.getId())
-                .username(user.getUsername())
-                .email(user.getEmail())
-                .profilePic(user.getProfilePic())
-                .primaryGoal(user.getPrimaryGoal())
-                .unitSystem(user.getUnitSystem())
-                .effortMeasurement(user.getEffortMeasurement())
-                .restTimerDefault(user.getRestTimerDefault())
-                .equipmentAvailable(user.getEquipmentAvailable())
-                .build();
+        return mapToUserResponse(user);
     }
 
     public UserResponse updateUser(String userEmail, UpdateUserRequest request) {
@@ -56,6 +47,11 @@ public class UserService {
         // Update optional fields
         if (request.getPassword() != null && !request.getPassword().isEmpty()) {
             user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
+
+            // Keep provider state aligned when a Google-only account creates local credentials.
+            if (user.getAuthProvider() == AuthProvider.GOOGLE) {
+                user.setAuthProvider(AuthProvider.BOTH);
+            }
         }
         if (request.getProfilePic() != null) {
             user.setProfilePic(request.getProfilePic());
@@ -80,16 +76,23 @@ public class UserService {
         User updatedUser = userRepository.save(user);
 
         // Return safe DTO
+        return mapToUserResponse(updatedUser);
+        }
+
+        private UserResponse mapToUserResponse(User user) {
+            AuthProvider authProvider = user.getAuthProvider() != null ? user.getAuthProvider() : AuthProvider.LOCAL;
+
         return UserResponse.builder()
-                .id(updatedUser.getId())
-                .username(updatedUser.getUsername())
-                .email(updatedUser.getEmail())
-                .profilePic(updatedUser.getProfilePic())
-                .primaryGoal(updatedUser.getPrimaryGoal())
-                .unitSystem(updatedUser.getUnitSystem())
-                .effortMeasurement(updatedUser.getEffortMeasurement())
-                .restTimerDefault(updatedUser.getRestTimerDefault())
-                .equipmentAvailable(updatedUser.getEquipmentAvailable())
+            .id(user.getId())
+            .username(user.getUsername())
+            .email(user.getEmail())
+            .profilePic(user.getProfilePic())
+            .primaryGoal(user.getPrimaryGoal())
+            .unitSystem(user.getUnitSystem())
+            .effortMeasurement(user.getEffortMeasurement())
+            .restTimerDefault(user.getRestTimerDefault())
+            .equipmentAvailable(user.getEquipmentAvailable())
+                .authProvider(authProvider)
                 .build();
     }
 }
