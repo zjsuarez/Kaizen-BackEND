@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ExerciseService {
@@ -20,7 +22,7 @@ public class ExerciseService {
     @Transactional
     public ExerciseResponse createCustomExercise(String email, ExerciseRequest request) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                                .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         Exercise exercise = Exercise.builder()
                 .name(request.getName().trim())
@@ -33,15 +35,41 @@ public class ExerciseService {
                 .build();
 
         Exercise saved = exerciseRepository.save(exercise);
+        return toResponse(saved);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ExerciseResponse> getExercises(String email) {
+        userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        return exerciseRepository.findAllByCreatedByUser_EmailAndIsCustomTrueOrderByCreatedAtDesc(email)
+                .stream()
+                .map(this::toResponse)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public ExerciseResponse getExerciseById(String email, String exerciseId) {
+        userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        Exercise exercise = exerciseRepository.findByIdAndCreatedByUser_EmailAndIsCustomTrue(exerciseId, email)
+                .orElseThrow(() -> new IllegalArgumentException("Exercise not found or does not belong to user"));
+
+        return toResponse(exercise);
+    }
+
+    private ExerciseResponse toResponse(Exercise exercise) {
         return ExerciseResponse.builder()
-                .id(saved.getId())
-                .name(saved.getName())
-                .description(saved.getDescription())
-                .muscleTarget(saved.getMuscleTarget())
-                .metrics(saved.getMetrics())
-                .type(saved.getType())
-                .isCustom(saved.getIsCustom())
-                .createdAt(saved.getCreatedAt())
+                .id(exercise.getId())
+                .name(exercise.getName())
+                .description(exercise.getDescription())
+                .muscleTarget(exercise.getMuscleTarget())
+                .metrics(exercise.getMetrics())
+                .type(exercise.getType())
+                .isCustom(exercise.getIsCustom())
+                .createdAt(exercise.getCreatedAt())
                 .build();
     }
 }
