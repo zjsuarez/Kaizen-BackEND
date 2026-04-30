@@ -30,6 +30,7 @@ public class WorkoutService {
     private final UserRepository userRepository;
     private final RoutineRepository routineRepository;
     private final ExerciseRepository exerciseRepository;
+    private final EmailService emailService;
 
     @Transactional
     public WorkoutResponse createWorkout(String email, WorkoutRequest request) {
@@ -102,6 +103,9 @@ public class WorkoutService {
                 return workoutSetRepository.save(set);
             }).collect(Collectors.toList());
         }
+
+        String routineName = routine != null ? routine.getName() : null;
+        emailService.sendWorkoutSummary(user, routineName);
 
         return mapToResponse(savedWorkout, savedSets);
     }

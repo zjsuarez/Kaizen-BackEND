@@ -44,6 +44,9 @@ public interface WorkoutRepository extends JpaRepository<Workout, String> {
                         @Param("year") int year,
                         @Param("month") int month);
 
+        // Weekly workout count (for email summary)
+        long countByUser_IdAndEndTimeBetween(String userId, Timestamp weekStart, Timestamp weekEnd);
+
         // Statistics: Training Activity Heatmap
         @Query(value = "SELECT CAST(w.endTime AS DATE) AS activityDate, " +
                         "SUM(TIMESTAMPDIFF(MINUTE, w.startTime, w.endTime)) AS durationMinutes " +
