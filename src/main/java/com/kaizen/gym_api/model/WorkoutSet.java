@@ -53,6 +53,9 @@ public class WorkoutSet {
     @Column(name = "rpe")
     private Integer rpe;
 
+    @Column(name = "value")
+    private String value;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private WorkoutSetType type;

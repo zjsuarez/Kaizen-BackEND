@@ -5,6 +5,7 @@ import com.kaizen.gym_api.dto.response.UserResponse;
 import com.kaizen.gym_api.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
+@Slf4j
 public class UserController {
 
     private final UserService userService;
@@ -37,8 +39,9 @@ public class UserController {
     public ResponseEntity<UserResponse> getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = authentication.getName();
-        UserResponse response = userService.getUserProfile(userEmail);
-        return ResponseEntity.ok(response);
+        UserResponse responseDto = userService.getUserProfile(userEmail);
+        log.info("Returning user profile: {}", responseDto);
+        return ResponseEntity.ok(responseDto);
     }
 
 }

@@ -35,6 +35,9 @@ public class Exercise {
     @Column(name = "muscleTarget")
     private String muscleTarget;
 
+    @Column(name = "metrics")
+    private String metrics;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private ExerciseType type;

@@ -1,5 +1,6 @@
 package com.kaizen.gym_api.dto.response;
 
+import com.kaizen.gym_api.model.enums.AuthProvider;
 import com.kaizen.gym_api.model.enums.EquipmentType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,5 +24,6 @@ public class UserResponse {
     private String unitSystem;
     private String effortMeasurement;
     private Integer restTimerDefault;
-    
+    private AuthProvider authProvider;
+
 }
