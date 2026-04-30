@@ -105,7 +105,7 @@ public class WorkoutService {
         }
 
         String routineName = routine != null ? routine.getName() : null;
-        emailService.sendWorkoutSummary(user, routineName);
+        emailService.sendWorkoutSummary(user, routineName, savedWorkout, savedSets);
 
         return mapToResponse(savedWorkout, savedSets);
     }
