@@ -32,6 +32,7 @@ public class WorkoutSet {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customExerciseId_FK")
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private Exercise customExercise;
 
     @Column(name = "builtinExerciseKey")

@@ -31,6 +31,7 @@ public class Workout {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "routineId_FK")
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private Routine routine;
 
     @Column(name = "startTime")
