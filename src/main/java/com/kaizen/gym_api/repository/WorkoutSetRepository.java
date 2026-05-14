@@ -33,14 +33,14 @@ public interface WorkoutSetRepository extends JpaRepository<WorkoutSet, String> 
 
        List<WorkoutSet> findByWorkout_IdOrderBySetNumberAsc(String workoutId);
 
-       @Query("SELECT MAX(ws.weightKg * ws.reps) FROM WorkoutSet ws " +
+       @Query("SELECT MAX(ws.weightKg * (1 + (ws.reps / 30.0))) FROM WorkoutSet ws " +
                      "WHERE ws.workout.user.email = :email AND ws.customExercise.id = :exerciseId")
-       BigDecimal findMaxVolumeByCustomExerciseAndUser(@Param("email") String email,
+       Double findMax1RmByCustomExerciseAndUser(@Param("email") String email,
                      @Param("exerciseId") String exerciseId);
 
-       @Query("SELECT MAX(ws.weightKg * ws.reps) FROM WorkoutSet ws " +
+       @Query("SELECT MAX(ws.weightKg * (1 + (ws.reps / 30.0))) FROM WorkoutSet ws " +
                      "WHERE ws.workout.user.email = :email AND ws.builtinExerciseKey = :builtinExerciseKey")
-       BigDecimal findMaxVolumeByBuiltinExerciseKeyAndUser(@Param("email") String email,
+       Double findMax1RmByBuiltinExerciseKeyAndUser(@Param("email") String email,
                      @Param("builtinExerciseKey") String builtinExerciseKey);
 
        @Query("SELECT SUM(ws.weightKg * ws.reps) FROM WorkoutSet ws JOIN ws.workout w " +

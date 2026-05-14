@@ -78,12 +78,13 @@ public class WorkoutService {
                 // PR Detection logic
                 boolean isPR = false;
                 if (req.getWeightKg() != null && req.getReps() != null) {
-                    BigDecimal maxHistoricVolume = hasCustomExercise
-                            ? workoutSetRepository.findMaxVolumeByCustomExerciseAndUser(email, customExercise.getId())
-                            : workoutSetRepository.findMaxVolumeByBuiltinExerciseKeyAndUser(email, normalizedBuiltinExerciseKey);
-                    BigDecimal currentVolume = req.getWeightKg().multiply(new BigDecimal(req.getReps()));
+                    Double maxHistoric1RM = hasCustomExercise
+                            ? workoutSetRepository.findMax1RmByCustomExerciseAndUser(email, customExercise.getId())
+                            : workoutSetRepository.findMax1RmByBuiltinExerciseKeyAndUser(email, normalizedBuiltinExerciseKey);
                     
-                    if (maxHistoricVolume == null || currentVolume.compareTo(maxHistoricVolume) > 0) {
+                    double current1RM = req.getWeightKg().doubleValue() * (1.0 + (req.getReps() / 30.0));
+                    
+                    if (maxHistoric1RM == null || current1RM > maxHistoric1RM) {
                         isPR = true;
                     }
                 }
