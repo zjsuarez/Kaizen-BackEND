@@ -81,7 +81,11 @@ public class DashboardServiceImpl implements DashboardService {
         List<LocalDate> trainingDaysThisMonth = buildTrainingDaysThisMonth(userId);
         List<RecentPrDTO> recentPrs = buildRecentPrs(userId);
 
-        List<BodyMeasurement> measurements = bodyMeasurementRepository.findByUserOrderByRecordedAtDesc(user);
+        List<BodyMeasurement> allMeasurements = bodyMeasurementRepository.findByUserOrderByRecordedAtDesc(user);
+        List<BodyMeasurement> measurements = allMeasurements.stream()
+                .filter(m -> m.getWeightKg() != null)
+                .toList();
+
         Double currentWeight = 0.0;
         Double weightDiff = 0.0;
         if (measurements != null && !measurements.isEmpty()) {
